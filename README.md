@@ -12,7 +12,6 @@ Trained and maintained by **Roman Nikonov (Orakul)** - [Orakul Studio](https://g
 |---|---|---|
 | ![sample 1](samples/sample_01_woman_apples.png) | ![sample 2](samples/sample_02_sunflowers.png) | ![sample 3](samples/sample_03_peeling_potatoes.png) |
 
-*(Place the images from the `samples/` folder in your repo, or swap in downscaled versions — the originals are 45–50MB each and oversized for a git repo.)*
 
 ---
 
