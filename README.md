@@ -1,8 +1,8 @@
-# r2048f2dvangog — Rank 2048 LoRA for FLUX.2-dev
+# r2048f2dvangog - Rank 2048 LoRA for FLUX.2-dev
 
 **Ultra-high-rank style LoRA trained on FLUX.2-dev via the Viking Engine fork of ai-toolkit.**
 
-Trained and maintained by **Roman Nikonov (Orakul)** — [Orakul Studio](https://github.com/OrakulStudio), Chernihiv, Ukraine 🇺🇦
+Trained and maintained by **Roman Nikonov (Orakul)** - [Orakul Studio](https://github.com/OrakulStudio), Chernihiv, Ukraine 🇺🇦
 
 ---
 
@@ -18,7 +18,7 @@ Trained and maintained by **Roman Nikonov (Orakul)** — [Orakul Studio](https:/
 
 ## What this is
 
-A LoRA trained at an unusually high rank — **2048** — directly on `black-forest-labs/FLUX.2-dev`, pushed through on a single **RTX 4090**. Training at this rank on a 24GB card is normally a hard OOM wall; this run was made possible by the **Viking Engine**, an asynchronous memory manager built on top of `ai-toolkit`.
+A LoRA trained at an unusually high rank  **2048**  directly on `black-forest-labs/FLUX.2-dev`, pushed through on a single **RTX 4090**. Training at this rank on a 24GB card is normally a hard OOM wall; this run was made possible by the **Viking Engine**, an asynchronous memory manager built on top of `ai-toolkit`.
 
 ## Training specs
 
@@ -52,7 +52,7 @@ Rank 2048 on a 4090 works because of a custom fork of `ai-toolkit`, built and ha
 
 Fork: **https://github.com/OrakulStudio/AI-Toolkit-Windows11**
 
-> The memory/checkpointing architecture itself has its own dedicated repos and writeups (see Orakul Studio for the full evolution of the module) — this README is just the result log for this specific rank-2048 run, not a re-explanation of that system.
+> The memory/checkpointing architecture itself has its own dedicated repos and writeups (see Orakul Studio for the full evolution of the module)  this README is just the result log for this specific rank-2048 run, not a re-explanation of that system.
 
 ## Checkpoints
 
@@ -69,4 +69,4 @@ Trained and shipped under active shelling in Chernihiv, Ukraine. System stable.
 
 ## License
 
-*(add license — e.g. same terms as FLUX.2-dev base model / your preferred license)*
+*(add license - e.g. same terms as FLUX.2-dev base model / your preferred license)*
