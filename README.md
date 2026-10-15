@@ -159,7 +159,15 @@ Metrics in screenshots
 
 ---
 
+---
 
+## Test
+
+| | 
+|---|
+![R2048](https://github.com/OrakulStudio/FLUX2-RANK-2048/blob/main/Report-Flux2D(32B)-Rank2048-ofload-0.71-Low-Ram-False-dataset-512x512/photo_2026-10-16_02-34-32.jpg) |
+
+---
 > **TL;DR:** Do not run `low_vram` alongside custom asynchronous offloaders. Set `low_vram: false` and `offload: 0.71` in Viking Engine to train 12B FLUX2 models at Rank 2048 on consumer hardware with zero bottlenecks.
 
 
