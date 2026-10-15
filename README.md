@@ -150,7 +150,7 @@ Our profiling session (`orakul_report2048.nsys-rep`) validates complete decoupli
 
 ---
 
-## Samples
+## Nsight Systems trace report
 
 | | | |
 |---|---|---|
