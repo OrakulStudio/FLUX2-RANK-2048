@@ -1,3 +1,172 @@
+# 🚨 IMPORTANT UPDATE: RANK 2048 BREAKTHROUGH FOR FLUX.2 (32B) ON CONSUMER GPU
+
+> **Update Date:** October 2026 (Follow-up to the September 21 post)  
+> **Target Hardware:** RTX 4090 (24GB VRAM) + 128GB RAM + Intel i9-13900K  
+> **Status:** ⚡ Full Stability, Zero OOM, Maximum Tensor Core Occupancy  
+
+---
+
+## 🚀 Executive Summary & Critical Findings
+
+In our previous update (21.09), we successfully ran extra-high **Rank 2048** training on a 32-billion parameter FLUX.2 model using `offload: 0.91`. 
+
+However, after deep-dive profiling via **NVIDIA Nsight Systems** (`nsys`) and driver-level benchmarking, we identified a **critical architectural conflict**:
+
+When the framework's default `low_vram` mode is enabled alongside **Viking Engine** (our custom Asynchronous CUDA Memory Manager), the two engines compete for memory control and CUDA streams at the WDDM / pinned-memory layer. This competition induces severe latency spikes (up to 750ms kernel launch delays) and suboptimal GPU occupancy.
+
+By disabling `low_vram` and letting Viking Engine take full control, we eliminated stream contention, resulting in smooth asynchronous memory transfers and maximum compute throughput.
+
+---
+
+## 🛠 Recommended Configuration (YAML)
+
+To achieve maximum training speed and zero OOM errors on a single 24GB GPU at Rank 2048:
+
+```yaml
+job: extension
+config:
+  name: r2048ftranspskin
+  process:
+  - type: diffusion_trainer
+    training_folder: D:\AI_Models\ai-toolkit\output
+    sqlite_db_path: D:\AI_Models\ai-toolkit\aitk_db.db
+    device: cuda
+    trigger_word: r2048ftranspskin
+    performance_log_every: 10
+    network:
+      type: lora
+      linear: 2048
+      linear_alpha: 64    
+      conv: 32            
+      conv_alpha: 64      
+      lokr_full_rank: true
+      lokr_factor: -1
+      network_kwargs:
+        ignore_if_contains: []
+    save:
+      dtype: bf16
+      save_every: 50
+      max_step_saves_to_keep: 2
+      save_format: diffusers
+      push_to_hub: false
+    datasets:
+    - folder_path:  D:\AI_Models\datasets\modeldata\transporen
+      mask_path: null
+      mask_min_value: 0.1
+      default_caption: ''
+      caption_ext: txt
+      caption_dropout_rate: 0.05
+      cache_latents_to_disk: true
+      is_reg: false
+      network_weight: 1
+      resolution:
+      - 512
+      controls: []
+      shrink_video_to_frames: true
+      num_frames: 1
+      flip_x: false
+      flip_y: false
+      num_repeats: 1
+      control_path_1: null
+      control_path_2: null
+      control_path_3: null
+    train:
+      batch_size: 1
+      bypass_guidance_embedding: false
+      steps: 100
+      gradient_accumulation: 1
+      train_unet: true
+      train_text_encoder: false
+      gradient_checkpointing: true
+      noise_scheduler: flowmatch
+      optimizer: adamw8bit
+      timestep_type: weighted
+      content_or_style: balanced
+      optimizer_params:
+        weight_decay: 0.0001
+      unload_text_encoder: true
+      cache_text_embeddings: false
+      lr: 0.0001
+      ema_config:
+        use_ema: false
+        ema_decay: 0.99
+      skip_first_sample: true
+      force_first_sample: false
+      disable_sampling: true
+      dtype: bf16
+      diff_output_preservation: false
+      diff_output_preservation_multiplier: 1
+      diff_output_preservation_class: person
+      switch_boundary_every: 1
+      loss_type: mse
+    logging:
+      log_every: 1
+      use_ui_logger: false
+    model:
+      name_or_path: black-forest-labs/FLUX.2-dev
+      quantize: true
+      qtype: bf8
+      quantize_te: true
+      qtype_te: bf8
+      arch: flux2
+      low_vram: false
+      model_kwargs:
+        match_target_res: false
+      layer_offloading: true
+      layer_offloading_text_encoder_percent: 0.71
+      layer_offloading_transformer_percent: 0.71
+    
+meta:
+  name: r2048ftranspskin
+  version: '1.0'
+
+```
+
+### Why `offload: 0.71` + `low_vram: false`?
+1. **`low_vram: false`**: Hands total memory control to Viking Engine's double-buffered async pipeline, removing framework overhead.
+2. **`offload: 0.71`**: Frees PCIe bandwidth, ensuring high-speed pre-staging of weights in host RAM without choking CUDA execution streams.
+
+---
+
+## 📊 Nsight Systems Profiling Metrics
+
+Our profiling session (`orakul_report2048.nsys-rep`) validates complete decoupling of compute and memory transfers:
+
+* **Stream 7 (Default Compute Stream):**
+  * **83.2%** of active execution time saturated with heavy `cutlass` and `ampere_bf16` GEMM operations.
+* **Stream 13 (Dedicated Async Memory Stream):**
+  * **90.2%** of stream time executing asynchronous Host-to-Device transfers.
+  * Over **1.07 TB (Terabyte!)** of memory transferred H2D seamlessly across the session without stalling GPU compute kernels.
+
+---
+
+## 📁 Attached Artifacts & Benchmarks
+
+* 📄 `r2048ftranspskin.yaml` — Complete training configuration file.
+* 📈 `orakul_report2048.nsys-rep` — Raw Nsight Systems trace report.
+* 📋 `ORAKUL_stats_output.txt` — Summary of CUDA API and Kernel execution statistics.
+
+---
+
+> **TL;DR:** Do not run `low_vram` alongside custom asynchronous offloaders. Set `low_vram: false` and `offload: 0.71` in Viking Engine to train 12B FLUX2 models at Rank 2048 on consumer hardware with zero bottlenecks.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # r2048f2dvangog - Rank 2048 LoRA for FLUX.2-dev
 
 **Ultra-high-rank style LoRA trained on FLUX.2-dev via the Viking Engine fork of ai-toolkit.**
