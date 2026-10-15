@@ -143,7 +143,7 @@ Our profiling session (`orakul_report2048.nsys-rep`) validates complete decoupli
 ## 📁 Attached Artifacts & Benchmarks
 
 * 📄 `r2048ftranspskin.yaml` — Complete training configuration file.
-* 📈 `orakul_report2048.nsys-rep` — Raw Nsight Systems trace report.
+* 📈 [orakul_report2048.nsys-rep](https://github.com/OrakulStudio/FLUX2-RANK-2048/blob/main/Report-Flux2D(32B)-Rank2048-ofload-0.71-Low-Ram-False-dataset-512x512/orakul_report2048.nsys-rep) — Raw Nsight Systems trace report.
 * 📋 `ORAKUL_stats_output.txt` — Summary of CUDA API and Kernel execution statistics.
 
 ---
