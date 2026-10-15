@@ -147,10 +147,17 @@ Our profiling session (`orakul_report2048.nsys-rep`) validates complete decoupli
 * 📋 [ORAKUL_stats_output.txt](https://github.com/OrakulStudio/FLUX2-RANK-2048/blob/main/Report-Flux2D(32B)-Rank2048-ofload-0.71-Low-Ram-False-dataset-512x512/ORAKUL_stats_output.txt) — Summary of CUDA API and Kernel execution statistics.
 
 ---
+
+## Samples
+
+| | | |
+|---|---|---|
+
 Metrics in screenshots
-[1](https://github.com/OrakulStudio/FLUX2-RANK-2048/blob/main/Report-Flux2D(32B)-Rank2048-ofload-0.71-Low-Ram-False-dataset-512x512/%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA%20%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0%20(1210).png)
-[2](https://github.com/OrakulStudio/FLUX2-RANK-2048/blob/main/Report-Flux2D(32B)-Rank2048-ofload-0.71-Low-Ram-False-dataset-512x512/%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA%20%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0%20(1211).png)
-[3](https://github.com/OrakulStudio/FLUX2-RANK-2048/blob/main/Report-Flux2D(32B)-Rank2048-ofload-0.71-Low-Ram-False-dataset-512x512/%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA%20%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0%20(1212).png)
+![1](https://github.com/OrakulStudio/FLUX2-RANK-2048/blob/main/Report-Flux2D(32B)-Rank2048-ofload-0.71-Low-Ram-False-dataset-512x512/%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA%20%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0%20(1210).png) |
+![2](https://github.com/OrakulStudio/FLUX2-RANK-2048/blob/main/Report-Flux2D(32B)-Rank2048-ofload-0.71-Low-Ram-False-dataset-512x512/%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA%20%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0%20(1211).png) |
+
+![3](https://github.com/OrakulStudio/FLUX2-RANK-2048/blob/main/Report-Flux2D(32B)-Rank2048-ofload-0.71-Low-Ram-False-dataset-512x512/%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA%20%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0%20(1212).png) |
 
 
 
