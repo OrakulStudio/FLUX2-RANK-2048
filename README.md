@@ -154,9 +154,8 @@ Our profiling session (`orakul_report2048.nsys-rep`) validates complete decoupli
 
 | | | |
 |---|---|---|
-
 Metrics in screenshots
-![1](Report-Flux2D(32B)-Rank2048-ofload-0.71-Low-Ram-False-dataset-512x512/Снимок экрана (1210).png) | ![2](Report-Flux2D(32B)-Rank2048-ofload-0.71-Low-Ram-False-dataset-512x512/Снимок экрана (1212).png) | ![3](Report-Flux2D(32B)-Rank2048-ofload-0.71-Low-Ram-False-dataset-512x512/Снимок экрана (1211).png) |
+![Снимок экрана (1210).png](Report-Flux2D(32B)-Rank2048-ofload-0.71-Low-Ram-False-dataset-512x512/Снимок экрана (1210).png) | ![Снимок экрана (1212).png](Rank2048-ofload-0.71-Low-Ram-False-dataset-512x512/Снимок экрана (1212).png) | ![Снимок экрана (1211).png](Report-Flux2D(32B)-Rank2048-ofload-0.71-Low-Ram-False-dataset-512x512/Снимок экрана (1211).png) |
 
 ---
 
