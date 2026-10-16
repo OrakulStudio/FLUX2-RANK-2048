@@ -1,0 +1,369 @@
+[64.14W 2550MHz] Running 1 job
+WARNING:torchao.kernel.intmm:Warning: Detected no triton, on systems without Triton certain kernels will not work
+
+==============================================================================
+
+   
+ _____                  __               ___       ____    __                __                       
+/\  __`\               /\ \             /\_ \     /\  _`\ /\ \__            /\ \  __                  
+\ \ \/\ \  _ __    __  \ \ \/'\   __  __\//\ \    \ \,\L\_\ \ ,_\  __  __   \_\ \/\_\    ___          
+ \ \ \ \ \/\`'__\/'__`\ \ \ , <  /\ \/\ \ \ \ \    \/_\__ \\ \ \/ /\ \/\ \  /'_` \/\ \  / __`\        
+  \ \ \_\ \ \ \//\ \L\.\_\ \ \\`\\ \ \_\ \ \_\ \_    /\ \L\ \ \ \_\ \ \_\ \/\ \L\ \ \ \/\ \L\ \       
+   \ \_____\ \_\\ \__/.\_\\ \_\ \_\ \____/ /\____\   \ `\____\ \__\\ \____/\ \___,_\ \_\ \____/       
+    \/_____/\/_/ \/__/\/_/ \/_/\/_/\/___/  \/____/    \/_____/\/__/ \/___/  \/__,_ /\/_/\/___/        
+                                                                                                      
+                                                                                                      
+
+
+ VIKING ENGINE: ASYNCHRONOUS MEMORY MANAGER 
+• Core Architecture & Optimization : Orakul Studio (Roman Nikonov)
+• The magic of clean code          : Created to the sounds of war and constant shelling
+• Philosophy                       : Ostris created the brain. I taught it how to think.
+• Origin / Location                : Chernihiv, Ukraine
+• Creation date                    : 10.03.2026
+• Current Status                   : Working under fire. System stable.
+• Hardware Target                  : Ada Lovelace (RTX 4090)
+
+• Core Features & Pipelines:
+  - Double-buffered async weight streaming (Zero OOM at rank 2048+)
+  - CPU Pinned Memory pre-staging (Bypassing pagefile/swap)
+  - Hardware-level BF16/FP8 (E5M2) execution pipeline
+  - 100% Deterministic Checkpoint Resume (Anti-Stall & Zero Lottery)
+ Official Fork Hub: https://github.com/OrakulStudio/AI-Toolkit-Windows11
+==============================================================================
+[VIKING NOTICE] If the cursor hangs below, the system is silently downloading
+                the  base weights to your cache.
+                Terminal is NOT frozen. Please wait, grab a coffee... 
+==============================================================================
+
+{
+    "type": "diffusion_trainer",
+    "training_folder": "D:\\AI_Models\\ai-toolkit\\output",
+    "sqlite_db_path": "D:\\AI_Models\\ai-toolkit\\aitk_db.db",
+    "device": "cuda",
+    "trigger_word": "r128f2skintransp",
+    "performance_log_every": 10,
+    "network": {
+        "type": "lora",
+        "linear": 128,
+        "linear_alpha": 64,
+        "conv": 32,
+        "conv_alpha": 64,
+        "lokr_full_rank": true,
+        "lokr_factor": -1,
+        "network_kwargs": {
+            "ignore_if_contains": []
+        }
+    },
+    "save": {
+        "dtype": "bf16",
+        "save_every": 500,
+        "max_step_saves_to_keep": 4,
+        "save_format": "diffusers",
+        "push_to_hub": false
+    },
+    "datasets": [
+        {
+            "folder_path": "D:\\AI_Models\\datasets\\modeldata\\transporen",
+            "mask_path": null,
+            "mask_min_value": 0.1,
+            "default_caption": "",
+            "caption_ext": "txt",
+            "caption_dropout_rate": 0.05,
+            "cache_latents_to_disk": true,
+            "is_reg": false,
+            "network_weight": 1,
+            "resolution": [
+                512
+            ],
+            "controls": [],
+            "shrink_video_to_frames": true,
+            "num_frames": 1,
+            "flip_x": false,
+            "flip_y": false,
+            "num_repeats": 1,
+            "control_path_1": null,
+            "control_path_2": null,
+            "control_path_3": null
+        }
+    ],
+    "train": {
+        "batch_size": 1,
+        "bypass_guidance_embedding": false,
+        "steps": 2000,
+        "gradient_accumulation": 1,
+        "train_unet": true,
+        "train_text_encoder": false,
+        "gradient_checkpointing": true,
+        "noise_scheduler": "flowmatch",
+        "optimizer": "adamw8bit",
+        "timestep_type": "weighted",
+        "content_or_style": "balanced",
+        "optimizer_params": {
+            "weight_decay": 0.0001
+        },
+        "unload_text_encoder": true,
+        "cache_text_embeddings": false,
+        "lr": 0.0001,
+        "ema_config": {
+            "use_ema": false,
+            "ema_decay": 0.99
+        },
+        "skip_first_sample": true,
+        "force_first_sample": false,
+        "disable_sampling": true,
+        "dtype": "bf16",
+        "diff_output_preservation": false,
+        "diff_output_preservation_multiplier": 1,
+        "diff_output_preservation_class": "person",
+        "switch_boundary_every": 1,
+        "loss_type": "mse"
+    },
+    "logging": {
+        "log_every": 1,
+        "use_ui_logger": false
+    },
+    "model": {
+        "name_or_path": "black-forest-labs/FLUX.2-dev",
+        "quantize": true,
+        "qtype": "bf8",
+        "quantize_te": true,
+        "qtype_te": "bf8",
+        "arch": "flux2",
+        "low_vram": false,
+        "model_kwargs": {
+            "match_target_res": false
+        },
+        "layer_offloading": true,
+        "layer_offloading_text_encoder_percent": 0.71,
+        "layer_offloading_transformer_percent": 0.71
+    }
+}
+Using SQLite database at D:\AI_Models\ai-toolkit\aitk_db.db
+
+#############################################
+# Running job: r128f2skintransp
+#############################################
+
+
+Running  1 process
+[64.38W 2550MHz] Loading Flux2 model
+[64.38W 2550MHz] Loading transformer
+[64.23W 2550MHz] Quantizing Transformer
+[64.23W 2550MHz] >>> [ORAKUL-STUDIO] BF8 NATIVE (E5M2) DETECTED - CPU PRE-QUANT MODE
+[64.23W 2550MHz]  - quantizing 56 transformer blocks on CPU
+Quantizing by NIKINOV ROMAN RTX 4090:   0%|          | 0/56 [00:00<?, ?it/s]Quantizing by NIKINOV ROMAN RTX 4090:   2%|1         | 1/56 [00:01<01:11,  1.30s/it]Quantizing by NIKINOV ROMAN RTX 4090:   4%|3         | 2/56 [00:02<01:07,  1.24s/it]Quantizing by NIKINOV ROMAN RTX 4090:   5%|5         | 3/56 [00:03<01:03,  1.20s/it]Quantizing by NIKINOV ROMAN RTX 4090:   7%|7         | 4/56 [00:04<01:01,  1.18s/it]Quantizing by NIKINOV ROMAN RTX 4090:   9%|8         | 5/56 [00:06<01:01,  1.20s/it]Quantizing by NIKINOV ROMAN RTX 4090:  11%|#         | 6/56 [00:07<01:01,  1.22s/it]Quantizing by NIKINOV ROMAN RTX 4090:  12%|#2        | 7/56 [00:08<00:59,  1.21s/it]Quantizing by NIKINOV ROMAN RTX 4090:  14%|#4        | 8/56 [00:09<00:57,  1.19s/it]Quantizing by NIKINOV ROMAN RTX 4090:  16%|#6        | 9/56 [00:10<00:46,  1.02it/s]Quantizing by NIKINOV ROMAN RTX 4090:  18%|#7        | 10/56 [00:10<00:38,  1.18it/s]Quantizing by NIKINOV ROMAN RTX 4090:  20%|#9        | 11/56 [00:11<00:32,  1.37it/s]Quantizing by NIKINOV ROMAN RTX 4090:  21%|##1       | 12/56 [00:11<00:28,  1.55it/s]Quantizing by NIKINOV ROMAN RTX 4090:  23%|##3       | 13/56 [00:12<00:25,  1.68it/s]Quantizing by NIKINOV ROMAN RTX 4090:  25%|##5       | 14/56 [00:12<00:23,  1.80it/s]Quantizing by NIKINOV ROMAN RTX 4090:  27%|##6       | 15/56 [00:13<00:21,  1.89it/s]Quantizing by NIKINOV ROMAN RTX 4090:  29%|##8       | 16/56 [00:13<00:21,  1.86it/s]Quantizing by NIKINOV ROMAN RTX 4090:  30%|###       | 17/56 [00:14<00:21,  1.83it/s]Quantizing by NIKINOV ROMAN RTX 4090:  32%|###2      | 18/56 [00:14<00:21,  1.80it/s]Quantizing by NIKINOV ROMAN RTX 4090:  34%|###3      | 19/56 [00:15<00:20,  1.78it/s]Quantizing by NIKINOV ROMAN RTX 4090:  36%|###5      | 20/56 [00:15<00:19,  1.85it/s]Quantizing by NIKINOV ROMAN RTX 4090:  38%|###7      | 21/56 [00:16<00:19,  1.84it/s]Quantizing by NIKINOV ROMAN RTX 4090:  39%|###9      | 22/56 [00:16<00:18,  1.84it/s]Quantizing by NIKINOV ROMAN RTX 4090:  41%|####1     | 23/56 [00:17<00:17,  1.94it/s]Quantizing by NIKINOV ROMAN RTX 4090:  43%|####2     | 24/56 [00:17<00:16,  1.97it/s]Quantizing by NIKINOV ROMAN RTX 4090:  45%|####4     | 25/56 [00:18<00:15,  2.03it/s]Quantizing by NIKINOV ROMAN RTX 4090:  46%|####6     | 26/56 [00:18<00:15,  1.96it/s]Quantizing by NIKINOV ROMAN RTX 4090:  48%|####8     | 27/56 [00:19<00:15,  1.92it/s]Quantizing by NIKINOV ROMAN RTX 4090:  50%|#####     | 28/56 [00:19<00:14,  1.89it/s]Quantizing by NIKINOV ROMAN RTX 4090:  52%|#####1    | 29/56 [00:20<00:14,  1.82it/s]Quantizing by NIKINOV ROMAN RTX 4090:  54%|#####3    | 30/56 [00:21<00:14,  1.74it/s]Quantizing by NIKINOV ROMAN RTX 4090:  55%|#####5    | 31/56 [00:21<00:13,  1.83it/s]Quantizing by NIKINOV ROMAN RTX 4090:  57%|#####7    | 32/56 [00:22<00:12,  1.98it/s]Quantizing by NIKINOV ROMAN RTX 4090:  59%|#####8    | 33/56 [00:22<00:11,  2.00it/s]Quantizing by NIKINOV ROMAN RTX 4090:  61%|######    | 34/56 [00:23<00:10,  2.02it/s]Quantizing by NIKINOV ROMAN RTX 4090:  62%|######2   | 35/56 [00:23<00:09,  2.14it/s]Quantizing by NIKINOV ROMAN RTX 4090:  64%|######4   | 36/56 [00:23<00:09,  2.12it/s]Quantizing by NIKINOV ROMAN RTX 4090:  66%|######6   | 37/56 [00:24<00:08,  2.12it/s]Quantizing by NIKINOV ROMAN RTX 4090:  68%|######7   | 38/56 [00:24<00:08,  2.22it/s]Quantizing by NIKINOV ROMAN RTX 4090:  70%|######9   | 39/56 [00:25<00:07,  2.27it/s]Quantizing by NIKINOV ROMAN RTX 4090:  71%|#######1  | 40/56 [00:25<00:07,  2.18it/s]Quantizing by NIKINOV ROMAN RTX 4090:  73%|#######3  | 41/56 [00:26<00:06,  2.18it/s]Quantizing by NIKINOV ROMAN RTX 4090:  75%|#######5  | 42/56 [00:26<00:06,  2.26it/s]Quantizing by NIKINOV ROMAN RTX 4090:  77%|#######6  | 43/56 [00:26<00:05,  2.30it/s]Quantizing by NIKINOV ROMAN RTX 4090:  79%|#######8  | 44/56 [00:27<00:05,  2.22it/s]Quantizing by NIKINOV ROMAN RTX 4090:  80%|########  | 45/56 [00:27<00:05,  2.19it/s]Quantizing by NIKINOV ROMAN RTX 4090:  82%|########2 | 46/56 [00:28<00:04,  2.26it/s]Quantizing by NIKINOV ROMAN RTX 4090:  84%|########3 | 47/56 [00:28<00:03,  2.31it/s]Quantizing by NIKINOV ROMAN RTX 4090:  86%|########5 | 48/56 [00:29<00:03,  2.20it/s]Quantizing by NIKINOV ROMAN RTX 4090:  88%|########7 | 49/56 [00:29<00:03,  2.19it/s]Quantizing by NIKINOV ROMAN RTX 4090:  89%|########9 | 50/56 [00:30<00:02,  2.25it/s]Quantizing by NIKINOV ROMAN RTX 4090:  91%|#########1| 51/56 [00:30<00:02,  2.28it/s]Quantizing by NIKINOV ROMAN RTX 4090:  93%|#########2| 52/56 [00:31<00:01,  2.20it/s]Quantizing by NIKINOV ROMAN RTX 4090:  95%|#########4| 53/56 [00:31<00:01,  2.19it/s]Quantizing by NIKINOV ROMAN RTX 4090:  96%|#########6| 54/56 [00:31<00:00,  2.27it/s]Quantizing by NIKINOV ROMAN RTX 4090:  98%|#########8| 55/56 [00:32<00:00,  2.23it/s]Quantizing by NIKINOV ROMAN RTX 4090: 100%|##########| 56/56 [00:32<00:00,  2.19it/s]Quantizing by NIKINOV ROMAN RTX 4090: 100%|##########| 56/56 [00:32<00:00,  1.70it/s]
+[64.06W 2550MHz]  - quantizing extras
+[84.44W 2790MHz] Loading Mistral
+`torch_dtype` is deprecated! Use `dtype` instead!
+Loading checkpoint shards:   0%|          | 0/10 [00:00<?, ?it/s]Loading checkpoint shards:  40%|####      | 4/10 [00:00<00:00, 39.15it/s]Loading checkpoint shards: 100%|##########| 10/10 [00:00<00:00, 60.11it/s]
+[64.12W 2550MHz] Quantizing Mistral
+The tokenizer you are loading from 'mistralai/Mistral-Small-3.1-24B-Instruct-2503' with an incorrect regex pattern: https://huggingface.co/mistralai/Mistral-Small-3.1-24B-Instruct-2503/discussions/84#69121093e8b480e709447d5e. This will lead to incorrect tokenization. You should set the `fix_mistral_regex=True` flag when loading this tokenizer to fix this issue.
+[63.54W 2550MHz] Loading VAE
+[63.54W 2550MHz] Making pipe
+[63.54W 2550MHz] Preparing Model
+[63.54W 2550MHz] Model Loaded
+create LoRA network. base dim (rank): 128, alpha: 64
+neuron dropout: p=None, rank dropout: p=None, module dropout: p=None
+apply LoRA to Conv2d with kernel size (3,3). dim (rank): 32, alpha: 64
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 128 | ALPHA: 64 | SCALE: 0.5000 ---
+enable LoRA for U-Net
+[68.19W 2550MHz] Dataset: D:\AI_Models\datasets\modeldata\transporen
+[68.19W 2550MHz]   -  Preprocessing image dimensions
+  0%|          | 0/441 [00:00<?, ?it/s]  5%|5         | 23/441 [00:00<00:01, 226.43it/s] 11%|#         | 47/441 [00:00<00:01, 229.52it/s] 17%|#6        | 73/441 [00:00<00:01, 238.46it/s] 22%|##2       | 98/441 [00:00<00:01, 242.02it/s] 28%|##7       | 123/441 [00:00<00:01, 238.81it/s] 34%|###3      | 148/441 [00:00<00:01, 237.60it/s] 39%|###9      | 173/441 [00:00<00:01, 240.33it/s] 45%|####4     | 198/441 [00:00<00:01, 236.79it/s] 50%|#####     | 222/441 [00:00<00:00, 237.73it/s] 56%|#####6    | 247/441 [00:01<00:00, 240.41it/s] 62%|######1   | 272/441 [00:01<00:00, 242.49it/s] 67%|######7   | 297/441 [00:01<00:00, 241.37it/s] 73%|#######3  | 322/441 [00:01<00:00, 242.06it/s] 79%|#######8  | 347/441 [00:01<00:00, 232.34it/s] 84%|########4 | 372/441 [00:01<00:00, 233.83it/s] 90%|######### | 399/441 [00:01<00:00, 243.93it/s] 96%|#########6| 424/441 [00:01<00:00, 240.22it/s]100%|##########| 441/441 [00:01<00:00, 239.09it/s]
+[68.19W 2550MHz]   -  Found 441 images
+[68.19W 2550MHz] Bucket sizes for D:\AI_Models\datasets\modeldata\transporen:
+[68.19W 2550MHz] 512x512: 441 files
+[68.19W 2550MHz] 1 buckets made
+[68.19W 2550MHz] Caching latents for D:\AI_Models\datasets\modeldata\transporen
+[68.19W 2550MHz]  - Saving latents to disk
+Caching latents to disk:   0%|          | 0/441 [00:00<?, ?it/s]Caching latents to disk:   0%|          | 1/441 [00:00<06:01,  1.22it/s]Caching latents to disk:   0%|          | 2/441 [00:01<04:22,  1.67it/s]Caching latents to disk:   1%|          | 3/441 [00:01<03:50,  1.90it/s]Caching latents to disk:   1%|          | 4/441 [00:02<03:35,  2.03it/s]Caching latents to disk:   1%|1         | 5/441 [00:02<03:26,  2.11it/s]Caching latents to disk:   1%|1         | 6/441 [00:03<03:20,  2.17it/s]Caching latents to disk:   2%|1         | 7/441 [00:03<03:17,  2.20it/s]Caching latents to disk:   2%|1         | 8/441 [00:03<03:14,  2.22it/s]Caching latents to disk:   2%|2         | 9/441 [00:04<03:13,  2.24it/s]Caching latents to disk:   2%|2         | 10/441 [00:04<03:11,  2.25it/s]Caching latents to disk:   2%|2         | 11/441 [00:05<03:11,  2.25it/s]Caching latents to disk:   3%|2         | 12/441 [00:05<03:05,  2.31it/s]Caching latents to disk:   3%|2         | 13/441 [00:05<02:37,  2.72it/s]Caching latents to disk:   3%|3         | 14/441 [00:06<02:17,  3.10it/s]Caching latents to disk:   3%|3         | 15/441 [00:06<02:03,  3.44it/s]Caching latents to disk:   4%|3         | 16/441 [00:06<01:54,  3.72it/s]Caching latents to disk:   4%|3         | 17/441 [00:06<01:47,  3.95it/s]Caching latents to disk:   4%|4         | 18/441 [00:06<01:42,  4.12it/s]Caching latents to disk:   4%|4         | 19/441 [00:07<01:39,  4.23it/s]Caching latents to disk:   5%|4         | 20/441 [00:07<01:35,  4.39it/s]Caching latents to disk:   5%|4         | 21/441 [00:07<01:36,  4.37it/s]Caching latents to disk:   5%|4         | 22/441 [00:07<01:37,  4.28it/s]Caching latents to disk:   5%|5         | 23/441 [00:08<01:37,  4.28it/s]Caching latents to disk:   5%|5         | 24/441 [00:08<01:38,  4.24it/s]Caching latents to disk:   6%|5         | 25/441 [00:08<01:33,  4.44it/s]Caching latents to disk:   6%|5         | 26/441 [00:08<01:29,  4.66it/s]Caching latents to disk:   6%|6         | 27/441 [00:08<01:27,  4.72it/s]Caching latents to disk:   7%|6         | 29/441 [00:09<01:05,  6.26it/s]Caching latents to disk:   7%|7         | 33/441 [00:09<00:34, 11.87it/s]Caching latents to disk:   9%|8         | 38/441 [00:09<00:21, 18.65it/s]Caching latents to disk:  10%|9         | 43/441 [00:09<00:16, 24.19it/s]Caching latents to disk:  11%|#         | 48/441 [00:09<00:13, 28.45it/s]Caching latents to disk:  12%|#2        | 53/441 [00:09<00:12, 31.98it/s]Caching latents to disk:  13%|#3        | 58/441 [00:09<00:11, 34.73it/s]Caching latents to disk:  14%|#4        | 63/441 [00:09<00:10, 36.80it/s]Caching latents to disk:  15%|#5        | 68/441 [00:10<00:09, 38.37it/s]Caching latents to disk:  17%|#6        | 73/441 [00:10<00:09, 39.33it/s]Caching latents to disk:  18%|#7        | 78/441 [00:10<00:08, 40.47it/s]Caching latents to disk:  19%|#8        | 83/441 [00:10<00:08, 41.01it/s]Caching latents to disk:  20%|#9        | 88/441 [00:10<00:08, 40.89it/s]Caching latents to disk:  21%|##1       | 93/441 [00:10<00:08, 41.38it/s]Caching latents to disk:  22%|##2       | 98/441 [00:10<00:08, 41.44it/s]Caching latents to disk:  23%|##3       | 103/441 [00:10<00:08, 41.73it/s]Caching latents to disk:  24%|##4       | 108/441 [00:11<00:07, 41.84it/s]Caching latents to disk:  26%|##5       | 113/441 [00:11<00:07, 41.63it/s]Caching latents to disk:  27%|##6       | 118/441 [00:11<00:07, 41.40it/s]Caching latents to disk:  28%|##7       | 123/441 [00:11<00:07, 41.35it/s]Caching latents to disk:  29%|##9       | 128/441 [00:11<00:07, 41.25it/s]Caching latents to disk:  30%|###       | 133/441 [00:11<00:07, 41.76it/s]Caching latents to disk:  31%|###1      | 138/441 [00:11<00:07, 41.60it/s]Caching latents to disk:  32%|###2      | 143/441 [00:11<00:07, 41.42it/s]Caching latents to disk:  34%|###3      | 148/441 [00:11<00:07, 41.76it/s]Caching latents to disk:  35%|###4      | 153/441 [00:12<00:06, 41.80it/s]Caching latents to disk:  36%|###5      | 158/441 [00:12<00:06, 42.03it/s]Caching latents to disk:  37%|###6      | 163/441 [00:12<00:06, 41.67it/s]Caching latents to disk:  38%|###8      | 168/441 [00:12<00:06, 41.99it/s]Caching latents to disk:  39%|###9      | 173/441 [00:12<00:06, 41.61it/s]Caching latents to disk:  40%|####      | 178/441 [00:12<00:06, 41.46it/s]Caching latents to disk:  41%|####1     | 183/441 [00:12<00:06, 41.31it/s]Caching latents to disk:  43%|####2     | 188/441 [00:12<00:06, 41.76it/s]Caching latents to disk:  44%|####3     | 193/441 [00:13<00:05, 41.62it/s]Caching latents to disk:  45%|####4     | 198/441 [00:13<00:05, 41.37it/s]Caching latents to disk:  46%|####6     | 203/441 [00:13<00:05, 41.09it/s]Caching latents to disk:  47%|####7     | 208/441 [00:13<00:05, 41.72it/s]Caching latents to disk:  48%|####8     | 213/441 [00:13<00:05, 41.71it/s]Caching latents to disk:  49%|####9     | 218/441 [00:13<00:05, 42.06it/s]Caching latents to disk:  51%|#####     | 223/441 [00:13<00:05, 41.96it/s]Caching latents to disk:  52%|#####1    | 228/441 [00:13<00:05, 41.60it/s]Caching latents to disk:  53%|#####2    | 233/441 [00:14<00:04, 41.87it/s]Caching latents to disk:  54%|#####3    | 238/441 [00:14<00:04, 41.88it/s]Caching latents to disk:  55%|#####5    | 243/441 [00:14<00:04, 41.92it/s]Caching latents to disk:  56%|#####6    | 248/441 [00:14<00:04, 41.51it/s]Caching latents to disk:  57%|#####7    | 253/441 [00:14<00:04, 41.76it/s]Caching latents to disk:  59%|#####8    | 258/441 [00:14<00:04, 41.65it/s]Caching latents to disk:  60%|#####9    | 263/441 [00:14<00:04, 41.95it/s]Caching latents to disk:  61%|######    | 268/441 [00:14<00:04, 41.57it/s]Caching latents to disk:  62%|######1   | 273/441 [00:14<00:04, 41.62it/s]Caching latents to disk:  63%|######3   | 278/441 [00:15<00:03, 41.76it/s]Caching latents to disk:  64%|######4   | 283/441 [00:15<00:03, 41.68it/s]Caching latents to disk:  65%|######5   | 288/441 [00:15<00:03, 41.77it/s]Caching latents to disk:  66%|######6   | 293/441 [00:15<00:03, 41.45it/s]Caching latents to disk:  68%|######7   | 298/441 [00:15<00:03, 41.65it/s]Caching latents to disk:  69%|######8   | 303/441 [00:15<00:03, 41.87it/s]Caching latents to disk:  70%|######9   | 308/441 [00:15<00:03, 41.65it/s]Caching latents to disk:  71%|#######   | 313/441 [00:15<00:03, 41.94it/s]Caching latents to disk:  72%|#######2  | 318/441 [00:16<00:02, 41.42it/s]Caching latents to disk:  73%|#######3  | 323/441 [00:16<00:02, 41.43it/s]Caching latents to disk:  74%|#######4  | 328/441 [00:16<00:02, 40.96it/s]Caching latents to disk:  76%|#######5  | 333/441 [00:16<00:02, 40.80it/s]Caching latents to disk:  77%|#######6  | 338/441 [00:16<00:02, 40.82it/s]Caching latents to disk:  78%|#######7  | 343/441 [00:16<00:02, 41.03it/s]Caching latents to disk:  79%|#######8  | 348/441 [00:16<00:02, 41.12it/s]Caching latents to disk:  80%|########  | 353/441 [00:16<00:02, 41.16it/s]Caching latents to disk:  81%|########1 | 358/441 [00:17<00:02, 40.97it/s]Caching latents to disk:  82%|########2 | 363/441 [00:17<00:01, 41.41it/s]Caching latents to disk:  83%|########3 | 368/441 [00:17<00:01, 41.59it/s]Caching latents to disk:  85%|########4 | 373/441 [00:17<00:01, 41.50it/s]Caching latents to disk:  86%|########5 | 378/441 [00:17<00:01, 42.37it/s]Caching latents to disk:  87%|########6 | 383/441 [00:17<00:01, 42.05it/s]Caching latents to disk:  88%|########7 | 388/441 [00:17<00:01, 41.91it/s]Caching latents to disk:  89%|########9 | 393/441 [00:17<00:01, 42.07it/s]Caching latents to disk:  90%|######### | 398/441 [00:17<00:01, 42.11it/s]Caching latents to disk:  91%|#########1| 403/441 [00:18<00:00, 41.73it/s]Caching latents to disk:  93%|#########2| 408/441 [00:18<00:00, 41.86it/s]Caching latents to disk:  94%|#########3| 413/441 [00:18<00:00, 41.75it/s]Caching latents to disk:  95%|#########4| 418/441 [00:18<00:00, 41.57it/s]Caching latents to disk:  96%|#########5| 423/441 [00:18<00:00, 41.40it/s]Caching latents to disk:  97%|#########7| 428/441 [00:18<00:00, 41.38it/s]Caching latents to disk:  98%|#########8| 433/441 [00:18<00:00, 41.22it/s]Caching latents to disk:  99%|#########9| 438/441 [00:18<00:00, 41.76it/s]Caching latents to disk: 100%|##########| 441/441 [00:19<00:00, 23.19it/s]
+[108.76W 2790MHz] Caching embeddings and unloading text encoder
+[109.99W 2790MHz] 
+***** UNLOADING TEXT ENCODER *****
+[109.99W 2790MHz] This will train only with a blank prompt or trigger word, if set
+[109.99W 2790MHz] If this is not what you want, remove the unload_text_encoder flag
+[109.99W 2790MHz] ***********************************
+[109.99W 2790MHz] 
+[74.73W 2550MHz] Skipping first sample due to config setting
+
+================================================================================
+  ORAKUL STUDIO CORE • Active & Optimized by Roman Nikonov|Update:16.10.26 V2.1
+================================================================================
+
+                              
+      ____           __        __  ______          ___        
+     / __ \_______ _/ /____ __/ / / __/ /___ _____/ (_)__     
+    / /_/ / __/ _ `/  '_/ // / / _\ \/ __/ // / _  / / _ \    
+    \____/_/  \_,_/_/\_\\_,_/_/ /___/\__/\_,_/\_,_/_/\___/    
+                                                                                                                                                                                                                 
+    
+
+================================================================================
+                    *The magic of clean code*
+  FLUX.2 Rank 2048 Standard: offload: 0.71 | low_vram: false - Max Tensor
+  Viking Engine Speed: ~100s/it (~1.5 min/step) on RTX 4090 - Zero OOM
+  https://github.com/OrakulStudio/AI-Toolkit-Windows11
+================================================================================
+
+[74.73W 2550MHz] r128f2skintransp:   0%|          | 0/2000 [00:00<?, ?it/s][177.07W 2790MHz] r128f2skintransp:   0%|          | 0/2000 [00:07<?, ?it/s, lr: 1.0e-04 loss: 2.884e-01]                                                                                                         [!] °|||INFO 16.10,2026|||°|||Rank 2048 at 100s/it|||°|||Set offload to 0.71|||°|||INFO 16.10,2026|||°|||low_vram: false|||°
+[177.07W 2790MHz] r128f2skintransp:   0%|          | 0/2000 [00:07<?, ?it/s, lr: 1.0e-04 loss: 2.884e-01][177.07W 2790MHz] r128f2skintransp:   0%|          | 0/2000 [00:07<?, ?it/s, lr: 1.0e-04 loss: 2.884e-01][178.92W 2790MHz] r128f2skintransp:   0%|          | 0/2000 [00:15<?, ?it/s, lr: 1.0e-04 loss: 4.975e-01][179.19W 2790MHz] r128f2skintransp:   0%|          | 1/2000 [00:23<13:11:38, 23.76s/it, lr: 1.0e-04 loss: 6.307e-01][182.22W 2790MHz] r128f2skintransp:   0%|          | 2/2000 [00:31<8:46:49, 15.82s/it, lr: 1.0e-04 loss: 5.140e-01] [180.70W 2790MHz] r128f2skintransp:   0%|          | 3/2000 [00:39<7:17:45, 13.15s/it, lr: 1.0e-04 loss: 2.949e-01][184.30W 2790MHz] r128f2skintransp:   0%|          | 4/2000 [00:47<6:33:48, 11.84s/it, lr: 1.0e-04 loss: 5.939e-01][177.82W 2790MHz] r128f2skintransp:   0%|          | 5/2000 [00:55<6:07:11, 11.04s/it, lr: 1.0e-04 loss: 7.526e-01][182.94W 2790MHz] r128f2skintransp:   0%|          | 6/2000 [01:03<5:49:40, 10.52s/it, lr: 1.0e-04 loss: 1.753e-01][180.12W 2790MHz] r128f2skintransp:   0%|          | 7/2000 [01:10<5:36:39, 10.14s/it, lr: 1.0e-04 loss: 1.082e+00][182.29W 2790MHz] r128f2skintransp:   0%|          | 8/2000 [01:19<5:27:56,  9.88s/it, lr: 1.0e-04 loss: 4.369e-01][180.21W 2790MHz] r128f2skintransp:   0%|          | 9/2000 [01:26<5:20:23,  9.66s/it, lr: 1.0e-04 loss: 5.383e-01][185.23W 2790MHz] r128f2skintransp:   0%|          | 10/2000 [01:34<5:14:13,  9.47s/it, lr: 1.0e-04 loss: 2.857e-01][184.70W 2790MHz] r128f2skintransp:   1%|          | 11/2000 [01:42<5:09:03,  9.32s/it, lr: 1.0e-04 loss: 1.046e-01][183.35W 2790MHz] r128f2skintransp:   1%|          | 12/2000 [01:50<5:05:12,  9.21s/it, lr: 1.0e-04 loss: 4.015e-01][184.61W 2790MHz] r128f2skintransp:   1%|          | 13/2000 [01:58<5:01:28,  9.10s/it, lr: 1.0e-04 loss: 1.388e-01][181.81W 2790MHz] r128f2skintransp:   1%|          | 14/2000 [02:06<4:58:15,  9.01s/it, lr: 1.0e-04 loss: 9.062e-01][181.99W 2790MHz] r128f2skintransp:   1%|          | 15/2000 [02:14<4:55:33,  8.93s/it, lr: 1.0e-04 loss: 2.041e-01][187.63W 2790MHz] r128f2skintransp:   1%|          | 16/2000 [02:21<4:53:04,  8.86s/it, lr: 1.0e-04 loss: 1.161e-01][184.76W 2790MHz] r128f2skintransp:   1%|          | 17/2000 [02:29<4:51:03,  8.81s/it, lr: 1.0e-04 loss: 6.516e-01][184.19W 2790MHz] r128f2skintransp:   1%|          | 18/2000 [02:37<4:49:12,  8.76s/it, lr: 1.0e-04 loss: 4.920e-01][181.70W 2790MHz] r128f2skintransp:   1%|          | 19/2000 [02:45<4:47:29,  8.71s/it, lr: 1.0e-04 loss: 1.898e-01][188.68W 2790MHz] r128f2skintransp:   1%|1         | 20/2000 [02:53<4:46:03,  8.67s/it, lr: 1.0e-04 loss: 2.741e-01][182.05W 2790MHz] r128f2skintransp:   1%|1         | 21/2000 [03:01<4:44:43,  8.63s/it, lr: 1.0e-04 loss: 8.207e-01][187.72W 2790MHz] r128f2skintransp:   1%|1         | 22/2000 [03:09<4:43:25,  8.60s/it, lr: 1.0e-04 loss: 5.914e-01][187.20W 2790MHz] r128f2skintransp:   1%|1         | 23/2000 [03:17<4:42:22,  8.57s/it, lr: 1.0e-04 loss: 5.670e-01][184.50W 2790MHz] r128f2skintransp:   1%|1         | 24/2000 [03:24<4:41:12,  8.54s/it, lr: 1.0e-04 loss: 8.104e-01][181.10W 2790MHz] r128f2skintransp:   1%|1         | 25/2000 [03:32<4:40:09,  8.51s/it, lr: 1.0e-04 loss: 2.246e-01][188.52W 2790MHz] r128f2skintransp:   1%|1         | 26/2000 [03:40<4:39:11,  8.49s/it, lr: 1.0e-04 loss: 9.668e-01][184.29W 2790MHz] r128f2skintransp:   1%|1         | 27/2000 [03:48<4:38:23,  8.47s/it, lr: 1.0e-04 loss: 4.815e-01][183.51W 2790MHz] r128f2skintransp:   1%|1         | 28/2000 [03:56<4:37:30,  8.44s/it, lr: 1.0e-04 loss: 1.149e-01][180.78W 2790MHz] r128f2skintransp:   1%|1         | 29/2000 [04:04<4:36:41,  8.42s/it, lr: 1.0e-04 loss: 4.583e-01][187.68W 2790MHz] r128f2skintransp:   2%|1         | 30/2000 [04:12<4:35:57,  8.40s/it, lr: 1.0e-04 loss: 2.846e-01][182.63W 2790MHz] r128f2skintransp:   2%|1         | 31/2000 [04:19<4:35:13,  8.39s/it, lr: 1.0e-04 loss: 7.909e-01][185.93W 2790MHz] r128f2skintransp:   2%|1         | 32/2000 [04:27<4:34:31,  8.37s/it, lr: 1.0e-04 loss: 9.042e-01][186.14W 2790MHz] r128f2skintransp:   2%|1         | 33/2000 [04:35<4:33:50,  8.35s/it, lr: 1.0e-04 loss: 3.760e-01][180.72W 2790MHz] r128f2skintransp:   2%|1         | 34/2000 [04:43<4:33:13,  8.34s/it, lr: 1.0e-04 loss: 6.019e-01][183.83W 2790MHz] r128f2skintransp:   2%|1         | 35/2000 [04:51<4:32:42,  8.33s/it, lr: 1.0e-04 loss: 4.984e-01][180.17W 2790MHz] r128f2skintransp:   2%|1         | 36/2000 [04:59<4:32:13,  8.32s/it, lr: 1.0e-04 loss: 5.788e-01][182.52W 2790MHz] r128f2skintransp:   2%|1         | 37/2000 [05:07<4:31:38,  8.30s/it, lr: 1.0e-04 loss: 3.383e-01][181.89W 2790MHz] r128f2skintransp:   2%|1         | 38/2000 [05:15<4:31:07,  8.29s/it, lr: 1.0e-04 loss: 8.053e-02][188.96W 2790MHz] r128f2skintransp:   2%|1         | 39/2000 [05:22<4:30:33,  8.28s/it, lr: 1.0e-04 loss: 5.250e-01][184.68W 2790MHz] r128f2skintransp:   2%|2         | 40/2000 [05:30<4:30:02,  8.27s/it, lr: 1.0e-04 loss: 3.412e-01][182.67W 2790MHz] r128f2skintransp:   2%|2         | 41/2000 [05:38<4:29:34,  8.26s/it, lr: 1.0e-04 loss: 8.749e-01][180.28W 2790MHz] r128f2skintransp:   2%|2         | 42/2000 [05:46<4:29:08,  8.25s/it, lr: 1.0e-04 loss: 7.540e-01][187.38W 2790MHz] r128f2skintransp:   2%|2         | 43/2000 [05:54<4:28:42,  8.24s/it, lr: 1.0e-04 loss: 8.351e-01][186.06W 2790MHz] r128f2skintransp:   2%|2         | 44/2000 [06:02<4:28:14,  8.23s/it, lr: 1.0e-04 loss: 4.473e-01][186.86W 2790MHz] r128f2skintransp:   2%|2         | 45/2000 [06:09<4:27:47,  8.22s/it, lr: 1.0e-04 loss: 3.752e-01][185.17W 2790MHz] r128f2skintransp:   2%|2         | 46/2000 [06:17<4:27:21,  8.21s/it, lr: 1.0e-04 loss: 4.918e-01][185.99W 2790MHz] r128f2skintransp:   2%|2         | 47/2000 [06:25<4:27:05,  8.21s/it, lr: 1.0e-04 loss: 5.675e-01][182.24W 2790MHz] r128f2skintransp:   2%|2         | 48/2000 [06:33<4:26:42,  8.20s/it, lr: 1.0e-04 loss: 6.737e-01][185.34W 2790MHz] r128f2skintransp:   2%|2         | 49/2000 [06:41<4:26:21,  8.19s/it, lr: 1.0e-04 loss: 2.484e-01][184.46W 2790MHz] r128f2skintransp:   2%|2         | 50/2000 [06:49<4:26:01,  8.19s/it, lr: 1.0e-04 loss: 2.987e-01][190.22W 2790MHz] r128f2skintransp:   3%|2         | 51/2000 [06:57<4:25:38,  8.18s/it, lr: 1.0e-04 loss: 1.795e-01][185.65W 2790MHz] r128f2skintransp:   3%|2         | 52/2000 [07:04<4:25:17,  8.17s/it, lr: 1.0e-04 loss: 6.540e-01][182.15W 2790MHz] r128f2skintransp:   3%|2         | 53/2000 [07:12<4:24:58,  8.17s/it, lr: 1.0e-04 loss: 1.259e-01][185.70W 2790MHz] r128f2skintransp:   3%|2         | 54/2000 [07:20<4:24:38,  8.16s/it, lr: 1.0e-04 loss: 1.024e-01][185.67W 2790MHz] r128f2skintransp:   3%|2         | 55/2000 [07:28<4:24:19,  8.15s/it, lr: 1.0e-04 loss: 7.084e-01][184.44W 2790MHz] r128f2skintransp:   3%|2         | 56/2000 [07:36<4:23:59,  8.15s/it, lr: 1.0e-04 loss: 4.327e-01][188.05W 2790MHz] r128f2skintransp:   3%|2         | 57/2000 [07:44<4:23:42,  8.14s/it, lr: 1.0e-04 loss: 4.057e-01][185.44W 2790MHz] r128f2skintransp:   3%|2         | 58/2000 [07:51<4:23:22,  8.14s/it, lr: 1.0e-04 loss: 2.003e-01][186.36W 2790MHz] r128f2skintransp:   3%|2         | 59/2000 [07:59<4:23:08,  8.13s/it, lr: 1.0e-04 loss: 5.634e-01][184.01W 2790MHz] r128f2skintransp:   3%|3         | 60/2000 [08:07<4:22:51,  8.13s/it, lr: 1.0e-04 loss: 3.304e-01]
