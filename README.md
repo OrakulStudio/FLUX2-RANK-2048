@@ -167,6 +167,34 @@ Metrics in screenshots
 |---|
 ![R2048](https://github.com/OrakulStudio/FLUX2-RANK-2048/blob/main/Report-Flux2D(32B)-Rank2048-ofload-0.71-Low-Ram-False-dataset-512x512/photo_2026-10-16_02-34-32.jpg) |
 
+
+### 📊 FLUX.2 (32B BF8) VRAM & Offload Benchmarks (RTX 4090 24GB)
+
+> **Hardware Context:** RTX 4090 (24GB GDDR6X) | Windows 11 WDDM Driver | Viking Async CUDA Memory Manager
+
+---
+
+#### 🎯 Quick Decision Matrix (Mode Selection)
+
+| Mode | `offload` | Resolution | Rank | Cruising Speed ​​| Purpose |
+| :--- | :---: | :---: | :---: | :---: | :--- |
+| **Stability Mode** *(Set & Forget)* | **`0.71`** | **512×512 / 1024×1024** | **16 – 2048** | **~8 s/it** (512×512)<br>**~16–20 s/it** (1024×1024)<br>**~100 s/it** (Rank 2048) | **Universal preset.** Overcomes memory fragmentation after frequent restarts, prevents WDDM spinlocks, and completely eliminates OOM (Out of Memory) errors at any rank. |
+| **Performance Mode** *(Clean Boot)* | **`0.65`** | **1024×1024** | **16 – 128** | **~12–15 s/it** | **Maximum speed.** Requires high computational density (4096 tokens) within a "fresh" CUDA context to overlap weight transfers over the PCIe bus. | ---
+
+#### 💡 Operational Mechanics and WDDM Behavior
+
+1. **`offload: 0.71` (Absolute Stability Mode):**
+* Frees up an additional **~2 GB of VRAM**, preventing the Windows WDDM driver from needing to defragment video memory during the micro-pauses between asynchronous CUDA streams. 
+* Allows the asynchronous buffer to clear itself instantly: even if the initial step is delayed due to a heavily loaded system, the timing stabilizes to optimal, sustained values ​​by the second or third step.
+
+2. **`offload: 0.65` (Maximum Compression Mode):**
+* The hard limit for a native resolution of 1024×1024. 
+* At resolutions below 1024×1024 (e.g., 512×512) or during frequent restarts, computations may execute too rapidly, triggering an **Async Stream Underflow**. With no available VRAM headroom, the WDDM driver enters a spinlock state (90+ s/it). In such scenarios, `offload: 0.71` must be used instead.
+
+---
+
+#### 📸 Logs
+
 ---
 > **TL;DR:** Do not run `low_vram` alongside custom asynchronous offloaders. Set `low_vram: false` and `offload: 0.71` in Viking Engine to train 12B FLUX2 models at Rank 2048 on consumer hardware with zero bottlenecks.
 
