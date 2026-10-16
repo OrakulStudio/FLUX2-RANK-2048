@@ -198,10 +198,19 @@ Metrics in screenshots
 
 Set offload to 0.65 | Rank 128 at 1024x1024
 [Log](https://github.com/OrakulStudio/FLUX2-RANK-2048/blob/main/Offload%20Benchmarks/1024x1024/Rank128-dataset1024x1024-ofload-0.65.txt)
+## 1024x1024
+
+| | 
+|---|
+![R128 1204x1024](https://github.com/OrakulStudio/FLUX2-RANK-2048/blob/main/Offload%20Benchmarks/1024x1024/1024x1024.png) |
+
 
 Set offload to 0.71 | Rank 128 at 512x512
 [Log](https://github.com/OrakulStudio/FLUX2-RANK-2048/blob/main/Offload%20Benchmarks/512x512/Log_Rank128-dataset512x512-ofload-0.71.txt)
 
+| | 
+|---|
+![R128 512x512](https://github.com/OrakulStudio/FLUX2-RANK-2048/blob/main/Offload%20Benchmarks/512x512/512x512.png) |
 
 
 ---
