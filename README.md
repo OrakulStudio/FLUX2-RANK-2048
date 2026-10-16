@@ -207,6 +207,7 @@ Set offload to 0.65 | Rank 128 at 1024x1024
 
 Set offload to 0.71 | Rank 128 at 512x512
 [Log](https://github.com/OrakulStudio/FLUX2-RANK-2048/blob/main/Offload%20Benchmarks/512x512/Log_Rank128-dataset512x512-ofload-0.71.txt)
+## 512x512
 
 | | 
 |---|
