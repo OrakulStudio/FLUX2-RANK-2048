@@ -1,0 +1,397 @@
+[61.21W 2100MHz] Running 1 job
+WARNING:torchao.kernel.intmm:Warning: Detected no triton, on systems without Triton certain kernels will not work
+
+==============================================================================
+
+   
+ _____                  __               ___       ____    __                __                       
+/\  __`\               /\ \             /\_ \     /\  _`\ /\ \__            /\ \  __                  
+\ \ \/\ \  _ __    __  \ \ \/'\   __  __\//\ \    \ \,\L\_\ \ ,_\  __  __   \_\ \/\_\    ___          
+ \ \ \ \ \/\`'__\/'__`\ \ \ , <  /\ \/\ \ \ \ \    \/_\__ \\ \ \/ /\ \/\ \  /'_` \/\ \  / __`\        
+  \ \ \_\ \ \ \//\ \L\.\_\ \ \\`\\ \ \_\ \ \_\ \_    /\ \L\ \ \ \_\ \ \_\ \/\ \L\ \ \ \/\ \L\ \       
+   \ \_____\ \_\\ \__/.\_\\ \_\ \_\ \____/ /\____\   \ `\____\ \__\\ \____/\ \___,_\ \_\ \____/       
+    \/_____/\/_/ \/__/\/_/ \/_/\/_/\/___/  \/____/    \/_____/\/__/ \/___/  \/__,_ /\/_/\/___/        
+                                                                                                      
+                                                                                                      
+
+
+ VIKING ENGINE: ASYNCHRONOUS MEMORY MANAGER 
+• Core Architecture & Optimization : Orakul Studio (Roman Nikonov)
+• The magic of clean code          : Created to the sounds of war and constant shelling
+• Philosophy                       : Ostris created the brain. I taught it how to think.
+• Origin / Location                : Chernihiv, Ukraine
+• Creation date                    : 10.03.2026
+• Current Status                   : Working under fire. System stable.
+• Hardware Target                  : Ada Lovelace (RTX 4090)
+
+• Core Features & Pipelines:
+  - Double-buffered async weight streaming (Zero OOM at rank 1024+)
+  - CPU Pinned Memory pre-staging (Bypassing pagefile/swap)
+  - Hardware-level BF16/FP8 (E5M2) execution pipeline
+  - 100% Deterministic Checkpoint Resume (Anti-Stall & Zero Lottery)
+ Official Fork Hub: https://github.com/OrakulStudio/AI-Toolkit-Windows11
+==============================================================================
+[VIKING NOTICE] If the cursor hangs below, the system is silently downloading
+                the  base weights to your cache.
+                Terminal is NOT frozen. Please wait, grab a coffee... 
+==============================================================================
+
+{
+    "type": "diffusion_trainer",
+    "training_folder": "D:\\AI_Models\\ai-toolkit\\output",
+    "sqlite_db_path": "D:\\AI_Models\\ai-toolkit\\aitk_db.db",
+    "device": "cuda",
+    "trigger_word": "r1280f2aivazovsky",
+    "performance_log_every": 10,
+    "network": {
+        "type": "lora",
+        "linear": 1280,
+        "linear_alpha": 64,
+        "conv": 32,
+        "conv_alpha": 64,
+        "lokr_full_rank": true,
+        "lokr_factor": -1,
+        "network_kwargs": {
+            "ignore_if_contains": []
+        }
+    },
+    "save": {
+        "dtype": "bf16",
+        "save_every": 50,
+        "max_step_saves_to_keep": 10,
+        "save_format": "diffusers",
+        "push_to_hub": false
+    },
+    "datasets": [
+        {
+            "folder_path": "D:\\AI_Models\\datasets\\AIvazovsky",
+            "mask_path": null,
+            "mask_min_value": 0.1,
+            "default_caption": "",
+            "caption_ext": "txt",
+            "caption_dropout_rate": 0.05,
+            "cache_latents_to_disk": true,
+            "is_reg": false,
+            "network_weight": 1,
+            "resolution": [
+                512
+            ],
+            "controls": [],
+            "shrink_video_to_frames": true,
+            "num_frames": 1,
+            "flip_x": false,
+            "flip_y": false,
+            "num_repeats": 1,
+            "control_path_1": null,
+            "control_path_2": null,
+            "control_path_3": null
+        }
+    ],
+    "train": {
+        "batch_size": 1,
+        "bypass_guidance_embedding": false,
+        "steps": 500,
+        "gradient_accumulation": 1,
+        "train_unet": true,
+        "train_text_encoder": false,
+        "gradient_checkpointing": true,
+        "noise_scheduler": "flowmatch",
+        "optimizer": "adamw8bit",
+        "timestep_type": "weighted",
+        "content_or_style": "balanced",
+        "optimizer_params": {
+            "weight_decay": 0.0001
+        },
+        "unload_text_encoder": true,
+        "cache_text_embeddings": false,
+        "lr": 0.0001,
+        "ema_config": {
+            "use_ema": false,
+            "ema_decay": 0.99
+        },
+        "skip_first_sample": true,
+        "force_first_sample": false,
+        "disable_sampling": true,
+        "dtype": "bf16",
+        "diff_output_preservation": false,
+        "diff_output_preservation_multiplier": 1,
+        "diff_output_preservation_class": "person",
+        "switch_boundary_every": 1,
+        "loss_type": "mse"
+    },
+    "logging": {
+        "log_every": 1,
+        "use_ui_logger": false
+    },
+    "model": {
+        "name_or_path": "black-forest-labs/FLUX.2-dev",
+        "quantize": true,
+        "qtype": "bf8",
+        "quantize_te": true,
+        "qtype_te": "bf8",
+        "arch": "flux2",
+        "low_vram": true,
+        "model_kwargs": {
+            "match_target_res": false
+        },
+        "layer_offloading": true,
+        "layer_offloading_text_encoder_percent": 0.65,
+        "layer_offloading_transformer_percent": 0.65
+    },
+    "sample": {
+        "sampler": "flowmatch",
+        "sample_every": 250,
+        "width": 1024,
+        "height": 1024,
+        "samples": [],
+        "neg": "",
+        "seed": 42,
+        "walk_seed": true,
+        "guidance_scale": 4,
+        "sample_steps": 25,
+        "num_frames": 1,
+        "fps": 1
+    }
+}
+Using SQLite database at D:\AI_Models\ai-toolkit\aitk_db.db
+
+#############################################
+# Running job: r1280f2aivazovsky
+#############################################
+
+
+Running  1 process
+[60.54W 2100MHz] Loading Flux2 model
+[60.54W 2100MHz] Loading transformer
+[61.23W 2100MHz] Quantizing Transformer
+[61.23W 2100MHz] >>> [ORAKUL-STUDIO] BF8 NATIVE (E5M2) DETECTED - CPU PRE-QUANT MODE
+[61.23W 2100MHz]  - quantizing 56 transformer blocks on CPU
+Quantizing by NIKINOV ROMAN RTX 4090:   0%|          | 0/56 [00:00<?, ?it/s]Quantizing by NIKINOV ROMAN RTX 4090:   2%|1         | 1/56 [00:01<01:19,  1.44s/it]Quantizing by NIKINOV ROMAN RTX 4090:   4%|3         | 2/56 [00:02<01:14,  1.37s/it]Quantizing by NIKINOV ROMAN RTX 4090:   5%|5         | 3/56 [00:03<01:08,  1.29s/it]Quantizing by NIKINOV ROMAN RTX 4090:   7%|7         | 4/56 [00:05<01:03,  1.21s/it]Quantizing by NIKINOV ROMAN RTX 4090:   9%|8         | 5/56 [00:06<01:00,  1.18s/it]Quantizing by NIKINOV ROMAN RTX 4090:  11%|#         | 6/56 [00:07<00:59,  1.18s/it]Quantizing by NIKINOV ROMAN RTX 4090:  12%|#2        | 7/56 [00:08<00:55,  1.13s/it]Quantizing by NIKINOV ROMAN RTX 4090:  14%|#4        | 8/56 [00:09<00:54,  1.13s/it]Quantizing by NIKINOV ROMAN RTX 4090:  16%|#6        | 9/56 [00:10<00:47,  1.00s/it]Quantizing by NIKINOV ROMAN RTX 4090:  18%|#7        | 10/56 [00:10<00:39,  1.16it/s]Quantizing by NIKINOV ROMAN RTX 4090:  20%|#9        | 11/56 [00:11<00:36,  1.25it/s]Quantizing by NIKINOV ROMAN RTX 4090:  21%|##1       | 12/56 [00:12<00:35,  1.23it/s]Quantizing by NIKINOV ROMAN RTX 4090:  23%|##3       | 13/56 [00:13<00:34,  1.25it/s]Quantizing by NIKINOV ROMAN RTX 4090:  25%|##5       | 14/56 [00:13<00:29,  1.40it/s]Quantizing by NIKINOV ROMAN RTX 4090:  27%|##6       | 15/56 [00:14<00:27,  1.51it/s]Quantizing by NIKINOV ROMAN RTX 4090:  29%|##8       | 16/56 [00:15<00:29,  1.36it/s]Quantizing by NIKINOV ROMAN RTX 4090:  30%|###       | 17/56 [00:16<00:32,  1.20it/s]Quantizing by NIKINOV ROMAN RTX 4090:  32%|###2      | 18/56 [00:16<00:29,  1.30it/s]Quantizing by NIKINOV ROMAN RTX 4090:  34%|###3      | 19/56 [00:17<00:25,  1.47it/s]Quantizing by NIKINOV ROMAN RTX 4090:  36%|###5      | 20/56 [00:17<00:21,  1.64it/s]Quantizing by NIKINOV ROMAN RTX 4090:  38%|###7      | 21/56 [00:18<00:23,  1.48it/s]Quantizing by NIKINOV ROMAN RTX 4090:  39%|###9      | 22/56 [00:18<00:20,  1.64it/s]Quantizing by NIKINOV ROMAN RTX 4090:  41%|####1     | 23/56 [00:19<00:19,  1.71it/s]Quantizing by NIKINOV ROMAN RTX 4090:  43%|####2     | 24/56 [00:20<00:19,  1.67it/s]Quantizing by NIKINOV ROMAN RTX 4090:  45%|####4     | 25/56 [00:20<00:17,  1.82it/s]Quantizing by NIKINOV ROMAN RTX 4090:  46%|####6     | 26/56 [00:21<00:18,  1.65it/s]Quantizing by NIKINOV ROMAN RTX 4090:  48%|####8     | 27/56 [00:21<00:16,  1.77it/s]Quantizing by NIKINOV ROMAN RTX 4090:  50%|#####     | 28/56 [00:22<00:15,  1.85it/s]Quantizing by NIKINOV ROMAN RTX 4090:  52%|#####1    | 29/56 [00:22<00:15,  1.70it/s]Quantizing by NIKINOV ROMAN RTX 4090:  54%|#####3    | 30/56 [00:23<00:13,  1.87it/s]Quantizing by NIKINOV ROMAN RTX 4090:  55%|#####5    | 31/56 [00:23<00:13,  1.85it/s]Quantizing by NIKINOV ROMAN RTX 4090:  57%|#####7    | 32/56 [00:24<00:13,  1.75it/s]Quantizing by NIKINOV ROMAN RTX 4090:  59%|#####8    | 33/56 [00:24<00:11,  1.93it/s]Quantizing by NIKINOV ROMAN RTX 4090:  61%|######    | 34/56 [00:25<00:13,  1.66it/s]Quantizing by NIKINOV ROMAN RTX 4090:  62%|######2   | 35/56 [00:26<00:12,  1.69it/s]Quantizing by NIKINOV ROMAN RTX 4090:  64%|######4   | 36/56 [00:26<00:11,  1.70it/s]Quantizing by NIKINOV ROMAN RTX 4090:  66%|######6   | 37/56 [00:28<00:15,  1.22it/s]Quantizing by NIKINOV ROMAN RTX 4090:  68%|######7   | 38/56 [00:28<00:12,  1.47it/s]Quantizing by NIKINOV ROMAN RTX 4090:  70%|######9   | 39/56 [00:28<00:10,  1.68it/s]Quantizing by NIKINOV ROMAN RTX 4090:  71%|#######1  | 40/56 [00:29<00:10,  1.53it/s]Quantizing by NIKINOV ROMAN RTX 4090:  73%|#######3  | 41/56 [00:30<00:09,  1.62it/s]Quantizing by NIKINOV ROMAN RTX 4090:  75%|#######5  | 42/56 [00:30<00:08,  1.57it/s]Quantizing by NIKINOV ROMAN RTX 4090:  77%|#######6  | 43/56 [00:31<00:07,  1.77it/s]Quantizing by NIKINOV ROMAN RTX 4090:  79%|#######8  | 44/56 [00:37<00:26,  2.22s/it]Quantizing by NIKINOV ROMAN RTX 4090:  80%|########  | 45/56 [00:37<00:18,  1.68s/it]Quantizing by NIKINOV ROMAN RTX 4090:  82%|########2 | 46/56 [00:38<00:13,  1.39s/it]Quantizing by NIKINOV ROMAN RTX 4090:  84%|########3 | 47/56 [00:38<00:09,  1.09s/it]Quantizing by NIKINOV ROMAN RTX 4090:  86%|########5 | 48/56 [00:39<00:07,  1.12it/s]Quantizing by NIKINOV ROMAN RTX 4090:  88%|########7 | 49/56 [00:40<00:05,  1.23it/s]Quantizing by NIKINOV ROMAN RTX 4090:  89%|########9 | 50/56 [00:40<00:04,  1.46it/s]Quantizing by NIKINOV ROMAN RTX 4090:  91%|#########1| 51/56 [00:41<00:03,  1.40it/s]Quantizing by NIKINOV ROMAN RTX 4090:  93%|#########2| 52/56 [00:41<00:02,  1.61it/s]Quantizing by NIKINOV ROMAN RTX 4090:  95%|#########4| 53/56 [00:42<00:02,  1.40it/s]Quantizing by NIKINOV ROMAN RTX 4090:  96%|#########6| 54/56 [00:43<00:01,  1.33it/s]Quantizing by NIKINOV ROMAN RTX 4090:  98%|#########8| 55/56 [00:43<00:00,  1.50it/s]Quantizing by NIKINOV ROMAN RTX 4090: 100%|##########| 56/56 [00:44<00:00,  1.62it/s]Quantizing by NIKINOV ROMAN RTX 4090: 100%|##########| 56/56 [00:44<00:00,  1.26it/s]
+[61.43W 2100MHz]  - quantizing extras
+[61.43W 2100MHz] Moving transformer to CPU
+[61.43W 2100MHz] Loading Mistral
+`torch_dtype` is deprecated! Use `dtype` instead!
+Loading checkpoint shards:   0%|          | 0/10 [00:00<?, ?it/s]Loading checkpoint shards:  20%|##        | 2/10 [00:00<00:00, 18.40it/s]Loading checkpoint shards:  50%|#####     | 5/10 [00:00<00:00, 24.47it/s]Loading checkpoint shards: 100%|##########| 10/10 [00:00<00:00, 33.10it/s]
+[61.15W 2100MHz] Quantizing Mistral
+The tokenizer you are loading from 'mistralai/Mistral-Small-3.1-24B-Instruct-2503' with an incorrect regex pattern: https://huggingface.co/mistralai/Mistral-Small-3.1-24B-Instruct-2503/discussions/84#69121093e8b480e709447d5e. This will lead to incorrect tokenization. You should set the `fix_mistral_regex=True` flag when loading this tokenizer to fix this issue.
+[59.42W 2100MHz] Loading VAE
+[59.42W 2100MHz] Making pipe
+[59.42W 2100MHz] Preparing Model
+[80.48W 2100MHz] Model Loaded
+create LoRA network. base dim (rank): 1280, alpha: 64
+neuron dropout: p=None, rank dropout: p=None, module dropout: p=None
+apply LoRA to Conv2d with kernel size (3,3). dim (rank): 32, alpha: 64
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+--- [FIXED by ORAKUL STUDIO] RANK: 1280 | ALPHA: 64 | SCALE: 0.0500 ---
+enable LoRA for U-Net
+[61.89W 2100MHz] #### IMPORTANT RESUMING FROM D:\AI_Models\ai-toolkit\output\r1280f2aivazovsky\r1280f2aivazovsky_000000100.safetensors ####
+[61.89W 2100MHz] Loading from D:\AI_Models\ai-toolkit\output\r1280f2aivazovsky\r1280f2aivazovsky_000000100.safetensors
+Missing keys: []
+[60.91W 2100MHz] Found step 100 in metadata, starting from there
+[60.91W 2100MHz] Loading optimizer state from D:\AI_Models\ai-toolkit\output\r1280f2aivazovsky\optimizer.pt
+[61.94W 2100MHz] Updating optimizer LR from params
+[61.94W 2100MHz] Dataset: D:\AI_Models\datasets\AIvazovsky
+[61.94W 2100MHz]   -  Preprocessing image dimensions
+  0%|          | 0/356 [00:00<?, ?it/s]  4%|4         | 15/356 [00:00<00:02, 147.25it/s]  9%|8         | 32/356 [00:00<00:02, 157.35it/s] 14%|#3        | 49/356 [00:00<00:01, 160.69it/s] 19%|#8        | 66/356 [00:00<00:01, 162.52it/s] 23%|##3       | 83/356 [00:00<00:01, 162.11it/s] 28%|##8       | 100/356 [00:00<00:01, 163.82it/s] 33%|###2      | 117/356 [00:00<00:01, 165.07it/s] 38%|###7      | 134/356 [00:00<00:01, 165.43it/s] 43%|####2     | 152/356 [00:00<00:01, 167.46it/s] 47%|####7     | 169/356 [00:01<00:01, 165.56it/s] 52%|#####2    | 186/356 [00:01<00:01, 165.49it/s] 57%|#####7    | 203/356 [00:01<00:00, 163.87it/s] 62%|######1   | 220/356 [00:01<00:00, 159.12it/s] 66%|######6   | 236/356 [00:01<00:00, 157.91it/s] 71%|#######   | 252/356 [00:01<00:00, 157.13it/s] 75%|#######5  | 268/356 [00:01<00:00, 156.99it/s] 80%|#######9  | 284/356 [00:01<00:00, 155.93it/s] 84%|########4 | 300/356 [00:01<00:00, 156.89it/s] 89%|########9 | 317/356 [00:01<00:00, 157.39it/s] 94%|#########3| 333/356 [00:02<00:00, 157.48it/s] 98%|#########8| 349/356 [00:02<00:00, 158.21it/s]100%|##########| 356/356 [00:02<00:00, 160.37it/s]
+[61.94W 2100MHz]   -  Found 356 images
+[61.94W 2100MHz] Bucket sizes for D:\AI_Models\datasets\AIvazovsky:
+[61.94W 2100MHz] 512x512: 356 files
+[61.94W 2100MHz] 1 buckets made
+[61.94W 2100MHz] Caching latents for D:\AI_Models\datasets\AIvazovsky
+[61.94W 2100MHz]  - Saving latents to disk
+Caching latents to disk:   0%|          | 0/356 [00:00<?, ?it/s]Caching latents to disk:   0%|          | 1/356 [00:00<03:42,  1.59it/s]Caching latents to disk:   1%|          | 2/356 [00:00<02:21,  2.50it/s]Caching latents to disk:   1%|          | 3/356 [00:01<01:53,  3.10it/s]Caching latents to disk:   1%|1         | 4/356 [00:01<01:42,  3.44it/s]Caching latents to disk:   1%|1         | 5/356 [00:01<01:34,  3.71it/s]Caching latents to disk:   2%|1         | 6/356 [00:01<01:30,  3.89it/s]Caching latents to disk:   2%|1         | 7/356 [00:02<01:28,  3.97it/s]Caching latents to disk:   2%|2         | 8/356 [00:02<01:25,  4.08it/s]Caching latents to disk:   3%|2         | 9/356 [00:02<01:23,  4.15it/s]Caching latents to disk:   3%|2         | 10/356 [00:02<01:22,  4.22it/s]Caching latents to disk:   3%|3         | 11/356 [00:02<01:21,  4.24it/s]Caching latents to disk:   3%|3         | 12/356 [00:03<01:20,  4.27it/s]Caching latents to disk:   4%|3         | 13/356 [00:03<01:20,  4.28it/s]Caching latents to disk:   4%|3         | 14/356 [00:03<01:19,  4.30it/s]Caching latents to disk:   4%|4         | 15/356 [00:03<01:19,  4.30it/s]Caching latents to disk:   4%|4         | 16/356 [00:04<01:18,  4.30it/s]Caching latents to disk:   5%|4         | 17/356 [00:04<01:18,  4.31it/s]Caching latents to disk:   5%|5         | 18/356 [00:04<01:18,  4.31it/s]Caching latents to disk:   5%|5         | 19/356 [00:04<01:18,  4.31it/s]Caching latents to disk:   6%|5         | 20/356 [00:05<01:17,  4.32it/s]Caching latents to disk:   6%|5         | 21/356 [00:05<01:17,  4.33it/s]Caching latents to disk:   6%|6         | 22/356 [00:05<01:17,  4.33it/s]Caching latents to disk:   6%|6         | 23/356 [00:05<01:17,  4.32it/s]Caching latents to disk:   7%|6         | 24/356 [00:05<01:16,  4.33it/s]Caching latents to disk:   7%|7         | 25/356 [00:06<01:16,  4.33it/s]Caching latents to disk:   7%|7         | 26/356 [00:06<01:16,  4.34it/s]Caching latents to disk:   8%|7         | 27/356 [00:06<01:15,  4.34it/s]Caching latents to disk:   8%|7         | 28/356 [00:06<01:15,  4.34it/s]Caching latents to disk:   8%|8         | 29/356 [00:07<01:16,  4.30it/s]Caching latents to disk:   8%|8         | 30/356 [00:07<01:17,  4.22it/s]Caching latents to disk:   9%|8         | 31/356 [00:07<01:17,  4.18it/s]Caching latents to disk:   9%|8         | 32/356 [00:07<01:18,  4.12it/s]Caching latents to disk:   9%|9         | 33/356 [00:08<01:18,  4.11it/s]Caching latents to disk:  10%|9         | 34/356 [00:08<01:18,  4.10it/s]Caching latents to disk:  10%|9         | 35/356 [00:08<01:16,  4.18it/s]Caching latents to disk:  10%|#         | 36/356 [00:08<01:15,  4.22it/s]Caching latents to disk:  10%|#         | 37/356 [00:09<01:14,  4.26it/s]Caching latents to disk:  11%|#         | 38/356 [00:09<01:14,  4.28it/s]Caching latents to disk:  11%|#         | 39/356 [00:09<01:14,  4.28it/s]Caching latents to disk:  11%|#1        | 40/356 [00:09<01:13,  4.30it/s]Caching latents to disk:  12%|#1        | 41/356 [00:09<01:13,  4.31it/s]Caching latents to disk:  12%|#1        | 42/356 [00:10<01:12,  4.31it/s]Caching latents to disk:  12%|#2        | 43/356 [00:10<01:12,  4.32it/s]Caching latents to disk:  12%|#2        | 44/356 [00:10<01:12,  4.32it/s]Caching latents to disk:  13%|#2        | 45/356 [00:10<01:11,  4.33it/s]Caching latents to disk:  13%|#2        | 46/356 [00:11<01:11,  4.33it/s]Caching latents to disk:  13%|#3        | 47/356 [00:11<01:11,  4.33it/s]Caching latents to disk:  13%|#3        | 48/356 [00:11<01:11,  4.34it/s]Caching latents to disk:  14%|#3        | 49/356 [00:11<01:10,  4.33it/s]Caching latents to disk:  14%|#4        | 50/356 [00:12<01:10,  4.34it/s]Caching latents to disk:  14%|#4        | 51/356 [00:12<01:10,  4.33it/s]Caching latents to disk:  15%|#4        | 52/356 [00:12<01:10,  4.34it/s]Caching latents to disk:  15%|#4        | 53/356 [00:12<01:10,  4.33it/s]Caching latents to disk:  15%|#5        | 54/356 [00:12<01:09,  4.34it/s]Caching latents to disk:  15%|#5        | 55/356 [00:13<01:09,  4.32it/s]Caching latents to disk:  16%|#5        | 56/356 [00:13<01:10,  4.27it/s]Caching latents to disk:  16%|#6        | 57/356 [00:13<01:11,  4.20it/s]Caching latents to disk:  16%|#6        | 58/356 [00:13<01:11,  4.14it/s]Caching latents to disk:  17%|#6        | 59/356 [00:14<01:12,  4.12it/s]Caching latents to disk:  17%|#6        | 60/356 [00:14<01:12,  4.10it/s]Caching latents to disk:  17%|#7        | 61/356 [00:14<01:12,  4.08it/s]Caching latents to disk:  17%|#7        | 62/356 [00:14<01:11,  4.09it/s]Caching latents to disk:  18%|#7        | 63/356 [00:15<01:11,  4.07it/s]Caching latents to disk:  18%|#7        | 64/356 [00:15<01:11,  4.07it/s]Caching latents to disk:  18%|#8        | 65/356 [00:15<01:11,  4.06it/s]Caching latents to disk:  19%|#8        | 66/356 [00:15<01:11,  4.06it/s]Caching latents to disk:  19%|#8        | 67/356 [00:16<01:10,  4.08it/s]Caching latents to disk:  19%|#9        | 68/356 [00:16<01:10,  4.08it/s]Caching latents to disk:  19%|#9        | 69/356 [00:16<01:10,  4.08it/s]Caching latents to disk:  20%|#9        | 70/356 [00:16<01:10,  4.07it/s]Caching latents to disk:  20%|#9        | 71/356 [00:17<01:09,  4.09it/s]Caching latents to disk:  20%|##        | 72/356 [00:17<01:08,  4.16it/s]Caching latents to disk:  21%|##        | 73/356 [00:17<01:07,  4.21it/s]Caching latents to disk:  21%|##        | 74/356 [00:17<01:06,  4.25it/s]Caching latents to disk:  21%|##1       | 75/356 [00:18<01:05,  4.27it/s]Caching latents to disk:  21%|##1       | 76/356 [00:18<01:05,  4.29it/s]Caching latents to disk:  22%|##1       | 77/356 [00:18<01:04,  4.29it/s]Caching latents to disk:  22%|##1       | 78/356 [00:18<01:04,  4.30it/s]Caching latents to disk:  22%|##2       | 79/356 [00:18<01:04,  4.32it/s]Caching latents to disk:  22%|##2       | 80/356 [00:19<01:03,  4.32it/s]Caching latents to disk:  23%|##2       | 81/356 [00:19<01:03,  4.33it/s]Caching latents to disk:  23%|##3       | 82/356 [00:19<01:03,  4.33it/s]Caching latents to disk:  23%|##3       | 83/356 [00:19<01:02,  4.33it/s]Caching latents to disk:  24%|##3       | 84/356 [00:20<01:02,  4.33it/s]Caching latents to disk:  24%|##3       | 85/356 [00:20<01:02,  4.33it/s]Caching latents to disk:  24%|##4       | 86/356 [00:20<01:02,  4.34it/s]Caching latents to disk:  24%|##4       | 87/356 [00:20<01:02,  4.33it/s]Caching latents to disk:  25%|##4       | 88/356 [00:21<01:01,  4.33it/s]Caching latents to disk:  25%|##5       | 89/356 [00:21<01:01,  4.33it/s]Caching latents to disk:  25%|##5       | 90/356 [00:21<01:01,  4.33it/s]Caching latents to disk:  26%|##5       | 91/356 [00:21<01:01,  4.33it/s]Caching latents to disk:  26%|##5       | 92/356 [00:21<01:01,  4.33it/s]Caching latents to disk:  26%|##6       | 93/356 [00:22<01:00,  4.34it/s]Caching latents to disk:  26%|##6       | 94/356 [00:22<01:00,  4.32it/s]Caching latents to disk:  27%|##6       | 95/356 [00:22<01:00,  4.33it/s]Caching latents to disk:  27%|##6       | 96/356 [00:22<01:00,  4.30it/s]Caching latents to disk:  27%|##7       | 97/356 [00:23<00:59,  4.32it/s]Caching latents to disk:  28%|##7       | 98/356 [00:23<00:59,  4.32it/s]Caching latents to disk:  28%|##7       | 99/356 [00:23<00:59,  4.32it/s]Caching latents to disk:  28%|##8       | 100/356 [00:23<00:59,  4.33it/s]Caching latents to disk:  28%|##8       | 101/356 [00:24<00:58,  4.33it/s]Caching latents to disk:  29%|##8       | 102/356 [00:24<00:58,  4.34it/s]Caching latents to disk:  29%|##8       | 103/356 [00:24<00:58,  4.34it/s]Caching latents to disk:  29%|##9       | 104/356 [00:24<00:58,  4.34it/s]Caching latents to disk:  29%|##9       | 105/356 [00:24<00:57,  4.33it/s]Caching latents to disk:  30%|##9       | 106/356 [00:25<00:57,  4.33it/s]Caching latents to disk:  30%|###       | 107/356 [00:25<00:57,  4.34it/s]Caching latents to disk:  30%|###       | 108/356 [00:25<00:57,  4.32it/s]Caching latents to disk:  31%|###       | 109/356 [00:25<00:56,  4.33it/s]Caching latents to disk:  31%|###       | 110/356 [00:26<00:56,  4.33it/s]Caching latents to disk:  31%|###1      | 111/356 [00:26<00:56,  4.33it/s]Caching latents to disk:  31%|###1      | 112/356 [00:26<00:56,  4.32it/s]Caching latents to disk:  32%|###1      | 113/356 [00:26<00:56,  4.32it/s]Caching latents to disk:  32%|###2      | 114/356 [00:27<00:55,  4.34it/s]Caching latents to disk:  32%|###2      | 115/356 [00:27<00:55,  4.32it/s]Caching latents to disk:  33%|###2      | 116/356 [00:27<00:55,  4.34it/s]Caching latents to disk:  33%|###2      | 117/356 [00:27<00:55,  4.34it/s]Caching latents to disk:  33%|###3      | 118/356 [00:28<00:54,  4.33it/s]Caching latents to disk:  33%|###3      | 119/356 [00:28<00:54,  4.33it/s]Caching latents to disk:  34%|###3      | 120/356 [00:28<00:54,  4.33it/s]Caching latents to disk:  34%|###3      | 121/356 [00:28<00:54,  4.33it/s]Caching latents to disk:  34%|###4      | 122/356 [00:28<00:53,  4.33it/s]Caching latents to disk:  35%|###4      | 123/356 [00:29<00:53,  4.33it/s]Caching latents to disk:  35%|###4      | 124/356 [00:29<00:53,  4.32it/s]Caching latents to disk:  35%|###5      | 125/356 [00:29<00:53,  4.33it/s]Caching latents to disk:  35%|###5      | 126/356 [00:29<00:53,  4.33it/s]Caching latents to disk:  36%|###5      | 127/356 [00:30<00:53,  4.30it/s]Caching latents to disk:  36%|###5      | 128/356 [00:30<00:52,  4.31it/s]Caching latents to disk:  36%|###6      | 129/356 [00:30<00:53,  4.22it/s]Caching latents to disk:  37%|###6      | 130/356 [00:30<00:54,  4.18it/s]Caching latents to disk:  37%|###6      | 131/356 [00:31<00:54,  4.15it/s]Caching latents to disk:  37%|###7      | 132/356 [00:31<00:53,  4.22it/s]Caching latents to disk:  37%|###7      | 133/356 [00:31<00:52,  4.25it/s]Caching latents to disk:  38%|###7      | 134/356 [00:31<00:52,  4.27it/s]Caching latents to disk:  38%|###7      | 135/356 [00:31<00:51,  4.29it/s]Caching latents to disk:  38%|###8      | 136/356 [00:32<00:50,  4.31it/s]Caching latents to disk:  38%|###8      | 137/356 [00:32<00:50,  4.32it/s]Caching latents to disk:  39%|###8      | 138/356 [00:32<00:50,  4.32it/s]Caching latents to disk:  39%|###9      | 139/356 [00:32<00:50,  4.32it/s]Caching latents to disk:  39%|###9      | 140/356 [00:33<00:49,  4.33it/s]Caching latents to disk:  40%|###9      | 141/356 [00:33<00:49,  4.34it/s]Caching latents to disk:  40%|###9      | 142/356 [00:33<00:49,  4.33it/s]Caching latents to disk:  40%|####      | 143/356 [00:33<00:49,  4.32it/s]Caching latents to disk:  40%|####      | 144/356 [00:34<00:48,  4.33it/s]Caching latents to disk:  41%|####      | 145/356 [00:34<00:48,  4.34it/s]Caching latents to disk:  41%|####1     | 146/356 [00:34<00:48,  4.34it/s]Caching latents to disk:  41%|####1     | 147/356 [00:34<00:48,  4.34it/s]Caching latents to disk:  42%|####1     | 148/356 [00:34<00:48,  4.33it/s]Caching latents to disk:  42%|####1     | 149/356 [00:35<00:47,  4.34it/s]Caching latents to disk:  42%|####2     | 150/356 [00:35<00:47,  4.34it/s]Caching latents to disk:  42%|####2     | 151/356 [00:35<00:47,  4.34it/s]Caching latents to disk:  43%|####2     | 152/356 [00:35<00:46,  4.35it/s]Caching latents to disk:  43%|####2     | 153/356 [00:36<00:46,  4.34it/s]Caching latents to disk:  43%|####3     | 154/356 [00:36<00:46,  4.34it/s]Caching latents to disk:  44%|####3     | 155/356 [00:36<00:46,  4.34it/s]Caching latents to disk:  44%|####3     | 156/356 [00:36<00:46,  4.33it/s]Caching latents to disk:  44%|####4     | 157/356 [00:37<00:45,  4.34it/s]Caching latents to disk:  44%|####4     | 158/356 [00:37<00:45,  4.33it/s]Caching latents to disk:  45%|####4     | 159/356 [00:37<00:45,  4.32it/s]Caching latents to disk:  45%|####4     | 160/356 [00:37<00:45,  4.32it/s]Caching latents to disk:  45%|####5     | 161/356 [00:37<00:45,  4.33it/s]Caching latents to disk:  46%|####5     | 162/356 [00:38<00:44,  4.32it/s]Caching latents to disk:  46%|####5     | 163/356 [00:38<00:44,  4.33it/s]Caching latents to disk:  46%|####6     | 164/356 [00:38<00:44,  4.32it/s]Caching latents to disk:  46%|####6     | 165/356 [00:38<00:44,  4.33it/s]Caching latents to disk:  47%|####6     | 166/356 [00:39<00:43,  4.33it/s]Caching latents to disk:  47%|####6     | 167/356 [00:39<00:43,  4.33it/s]Caching latents to disk:  47%|####7     | 168/356 [00:39<00:43,  4.33it/s]Caching latents to disk:  47%|####7     | 169/356 [00:39<00:43,  4.33it/s]Caching latents to disk:  48%|####7     | 170/356 [00:40<00:42,  4.33it/s]Caching latents to disk:  48%|####8     | 171/356 [00:40<00:42,  4.32it/s]Caching latents to disk:  48%|####8     | 172/356 [00:40<00:42,  4.33it/s]Caching latents to disk:  49%|####8     | 173/356 [00:40<00:42,  4.32it/s]Caching latents to disk:  49%|####8     | 174/356 [00:40<00:42,  4.33it/s]Caching latents to disk:  49%|####9     | 175/356 [00:41<00:41,  4.33it/s]Caching latents to disk:  49%|####9     | 176/356 [00:41<00:41,  4.32it/s]Caching latents to disk:  50%|####9     | 177/356 [00:41<00:41,  4.33it/s]Caching latents to disk:  50%|#####     | 178/356 [00:41<00:41,  4.32it/s]Caching latents to disk:  50%|#####     | 179/356 [00:42<00:40,  4.33it/s]Caching latents to disk:  51%|#####     | 180/356 [00:42<00:40,  4.33it/s]Caching latents to disk:  51%|#####     | 181/356 [00:42<00:40,  4.33it/s]Caching latents to disk:  51%|#####1    | 182/356 [00:42<00:40,  4.33it/s]Caching latents to disk:  51%|#####1    | 183/356 [00:43<00:40,  4.32it/s]Caching latents to disk:  52%|#####1    | 184/356 [00:43<00:39,  4.33it/s]Caching latents to disk:  52%|#####1    | 185/356 [00:43<00:39,  4.33it/s]Caching latents to disk:  52%|#####2    | 186/356 [00:43<00:39,  4.33it/s]Caching latents to disk:  53%|#####2    | 187/356 [00:43<00:38,  4.34it/s]Caching latents to disk:  53%|#####2    | 188/356 [00:44<00:38,  4.32it/s]Caching latents to disk:  53%|#####3    | 189/356 [00:44<00:38,  4.32it/s]Caching latents to disk:  53%|#####3    | 190/356 [00:44<00:38,  4.32it/s]Caching latents to disk:  54%|#####3    | 191/356 [00:44<00:38,  4.33it/s]Caching latents to disk:  54%|#####3    | 192/356 [00:45<00:37,  4.33it/s]Caching latents to disk:  54%|#####4    | 193/356 [00:45<00:37,  4.33it/s]Caching latents to disk:  54%|#####4    | 194/356 [00:45<00:37,  4.33it/s]Caching latents to disk:  55%|#####4    | 195/356 [00:45<00:37,  4.33it/s]Caching latents to disk:  55%|#####5    | 196/356 [00:46<00:37,  4.32it/s]Caching latents to disk:  55%|#####5    | 197/356 [00:46<00:36,  4.33it/s]Caching latents to disk:  56%|#####5    | 198/356 [00:46<00:36,  4.34it/s]Caching latents to disk:  56%|#####5    | 199/356 [00:46<00:36,  4.34it/s]Caching latents to disk:  56%|#####6    | 200/356 [00:46<00:35,  4.34it/s]Caching latents to disk:  56%|#####6    | 201/356 [00:47<00:35,  4.34it/s]Caching latents to disk:  57%|#####6    | 202/356 [00:47<00:35,  4.33it/s]Caching latents to disk:  57%|#####7    | 203/356 [00:47<00:35,  4.33it/s]Caching latents to disk:  57%|#####7    | 204/356 [00:47<00:35,  4.32it/s]Caching latents to disk:  58%|#####7    | 205/356 [00:48<00:34,  4.33it/s]Caching latents to disk:  58%|#####7    | 206/356 [00:48<00:34,  4.33it/s]Caching latents to disk:  58%|#####8    | 207/356 [00:48<00:34,  4.33it/s]Caching latents to disk:  58%|#####8    | 208/356 [00:48<00:34,  4.33it/s]Caching latents to disk:  59%|#####8    | 209/356 [00:49<00:33,  4.33it/s]Caching latents to disk:  59%|#####8    | 210/356 [00:49<00:33,  4.32it/s]Caching latents to disk:  59%|#####9    | 211/356 [00:49<00:33,  4.32it/s]Caching latents to disk:  60%|#####9    | 212/356 [00:49<00:33,  4.32it/s]Caching latents to disk:  60%|#####9    | 213/356 [00:49<00:33,  4.32it/s]Caching latents to disk:  60%|######    | 214/356 [00:50<00:32,  4.32it/s]Caching latents to disk:  60%|######    | 215/356 [00:50<00:32,  4.32it/s]Caching latents to disk:  61%|######    | 216/356 [00:50<00:32,  4.32it/s]Caching latents to disk:  61%|######    | 217/356 [00:50<00:32,  4.32it/s]Caching latents to disk:  61%|######1   | 218/356 [00:51<00:31,  4.31it/s]Caching latents to disk:  62%|######1   | 219/356 [00:51<00:31,  4.32it/s]Caching latents to disk:  62%|######1   | 220/356 [00:51<00:31,  4.32it/s]Caching latents to disk:  62%|######2   | 221/356 [00:51<00:31,  4.32it/s]Caching latents to disk:  62%|######2   | 222/356 [00:52<00:30,  4.33it/s]Caching latents to disk:  63%|######2   | 223/356 [00:52<00:30,  4.32it/s]Caching latents to disk:  63%|######2   | 224/356 [00:52<00:30,  4.32it/s]Caching latents to disk:  63%|######3   | 225/356 [00:52<00:30,  4.32it/s]Caching latents to disk:  63%|######3   | 226/356 [00:52<00:30,  4.32it/s]Caching latents to disk:  64%|######3   | 227/356 [00:53<00:29,  4.32it/s]Caching latents to disk:  64%|######4   | 228/356 [00:53<00:29,  4.32it/s]Caching latents to disk:  64%|######4   | 229/356 [00:53<00:29,  4.32it/s]Caching latents to disk:  65%|######4   | 230/356 [00:53<00:29,  4.32it/s]Caching latents to disk:  65%|######4   | 231/356 [00:54<00:28,  4.33it/s]Caching latents to disk:  65%|######5   | 232/356 [00:54<00:28,  4.32it/s]Caching latents to disk:  65%|######5   | 233/356 [00:54<00:28,  4.33it/s]Caching latents to disk:  66%|######5   | 234/356 [00:54<00:28,  4.32it/s]Caching latents to disk:  66%|######6   | 235/356 [00:55<00:27,  4.33it/s]Caching latents to disk:  66%|######6   | 236/356 [00:55<00:27,  4.33it/s]Caching latents to disk:  67%|######6   | 237/356 [00:55<00:27,  4.32it/s]Caching latents to disk:  67%|######6   | 238/356 [00:55<00:27,  4.31it/s]Caching latents to disk:  67%|######7   | 239/356 [00:56<00:27,  4.32it/s]Caching latents to disk:  67%|######7   | 240/356 [00:56<00:26,  4.32it/s]Caching latents to disk:  68%|######7   | 241/356 [00:56<00:26,  4.33it/s]Caching latents to disk:  68%|######7   | 242/356 [00:56<00:26,  4.32it/s]Caching latents to disk:  68%|######8   | 243/356 [00:56<00:26,  4.33it/s]Caching latents to disk:  69%|######8   | 244/356 [00:57<00:25,  4.32it/s]Caching latents to disk:  69%|######8   | 245/356 [00:57<00:25,  4.33it/s]Caching latents to disk:  69%|######9   | 246/356 [00:57<00:25,  4.33it/s]Caching latents to disk:  69%|######9   | 247/356 [00:57<00:25,  4.33it/s]Caching latents to disk:  70%|######9   | 248/356 [00:58<00:25,  4.31it/s]Caching latents to disk:  70%|######9   | 249/356 [00:58<00:24,  4.32it/s]Caching latents to disk:  70%|#######   | 250/356 [00:58<00:24,  4.32it/s]Caching latents to disk:  71%|#######   | 251/356 [00:58<00:24,  4.32it/s]Caching latents to disk:  71%|#######   | 252/356 [00:59<00:24,  4.32it/s]Caching latents to disk:  71%|#######1  | 253/356 [00:59<00:23,  4.33it/s]Caching latents to disk:  71%|#######1  | 254/356 [00:59<00:23,  4.32it/s]Caching latents to disk:  72%|#######1  | 255/356 [00:59<00:23,  4.32it/s]Caching latents to disk:  72%|#######1  | 256/356 [00:59<00:23,  4.32it/s]Caching latents to disk:  72%|#######2  | 257/356 [01:00<00:22,  4.33it/s]Caching latents to disk:  72%|#######2  | 258/356 [01:00<00:22,  4.33it/s]Caching latents to disk:  73%|#######2  | 259/356 [01:00<00:22,  4.34it/s]Caching latents to disk:  73%|#######3  | 260/356 [01:00<00:22,  4.33it/s]Caching latents to disk:  73%|#######3  | 261/356 [01:01<00:21,  4.32it/s]Caching latents to disk:  74%|#######3  | 262/356 [01:01<00:21,  4.32it/s]Caching latents to disk:  74%|#######3  | 263/356 [01:01<00:21,  4.32it/s]Caching latents to disk:  74%|#######4  | 264/356 [01:01<00:21,  4.32it/s]Caching latents to disk:  74%|#######4  | 265/356 [01:02<00:21,  4.33it/s]Caching latents to disk:  75%|#######4  | 266/356 [01:02<00:20,  4.33it/s]Caching latents to disk:  75%|#######5  | 267/356 [01:02<00:20,  4.32it/s]Caching latents to disk:  75%|#######5  | 268/356 [01:02<00:20,  4.32it/s]Caching latents to disk:  76%|#######5  | 269/356 [01:02<00:20,  4.33it/s]Caching latents to disk:  76%|#######5  | 270/356 [01:03<00:19,  4.32it/s]Caching latents to disk:  76%|#######6  | 271/356 [01:03<00:19,  4.33it/s]Caching latents to disk:  76%|#######6  | 272/356 [01:03<00:19,  4.32it/s]Caching latents to disk:  77%|#######6  | 273/356 [01:03<00:19,  4.32it/s]Caching latents to disk:  77%|#######6  | 274/356 [01:04<00:18,  4.32it/s]Caching latents to disk:  77%|#######7  | 275/356 [01:04<00:18,  4.32it/s]Caching latents to disk:  78%|#######7  | 276/356 [01:04<00:18,  4.31it/s]Caching latents to disk:  78%|#######7  | 277/356 [01:04<00:18,  4.32it/s]Caching latents to disk:  78%|#######8  | 278/356 [01:05<00:18,  4.32it/s]Caching latents to disk:  78%|#######8  | 279/356 [01:05<00:17,  4.32it/s]Caching latents to disk:  79%|#######8  | 280/356 [01:05<00:17,  4.33it/s]Caching latents to disk:  79%|#######8  | 281/356 [01:05<00:17,  4.32it/s]Caching latents to disk:  79%|#######9  | 282/356 [01:05<00:17,  4.33it/s]Caching latents to disk:  79%|#######9  | 283/356 [01:06<00:16,  4.32it/s]Caching latents to disk:  80%|#######9  | 284/356 [01:06<00:16,  4.33it/s]Caching latents to disk:  80%|########  | 285/356 [01:06<00:16,  4.34it/s]Caching latents to disk:  80%|########  | 286/356 [01:06<00:16,  4.31it/s]Caching latents to disk:  81%|########  | 287/356 [01:07<00:16,  4.23it/s]Caching latents to disk:  81%|########  | 288/356 [01:07<00:16,  4.18it/s]Caching latents to disk:  81%|########1 | 289/356 [01:07<00:16,  4.13it/s]Caching latents to disk:  81%|########1 | 290/356 [01:07<00:16,  4.12it/s]Caching latents to disk:  82%|########1 | 291/356 [01:08<00:15,  4.18it/s]Caching latents to disk:  82%|########2 | 292/356 [01:08<00:15,  4.22it/s]Caching latents to disk:  82%|########2 | 293/356 [01:08<00:14,  4.25it/s]Caching latents to disk:  83%|########2 | 294/356 [01:08<00:14,  4.28it/s]Caching latents to disk:  83%|########2 | 295/356 [01:09<00:14,  4.30it/s]Caching latents to disk:  83%|########3 | 296/356 [01:09<00:13,  4.31it/s]Caching latents to disk:  83%|########3 | 297/356 [01:09<00:13,  4.31it/s]Caching latents to disk:  84%|########3 | 298/356 [01:09<00:13,  4.32it/s]Caching latents to disk:  84%|########3 | 299/356 [01:09<00:13,  4.33it/s]Caching latents to disk:  84%|########4 | 300/356 [01:10<00:12,  4.33it/s]Caching latents to disk:  85%|########4 | 301/356 [01:10<00:12,  4.33it/s]Caching latents to disk:  85%|########4 | 302/356 [01:10<00:12,  4.33it/s]Caching latents to disk:  85%|########5 | 303/356 [01:10<00:12,  4.33it/s]Caching latents to disk:  85%|########5 | 304/356 [01:11<00:12,  4.31it/s]Caching latents to disk:  86%|########5 | 305/356 [01:11<00:11,  4.33it/s]Caching latents to disk:  86%|########5 | 306/356 [01:11<00:11,  4.32it/s]Caching latents to disk:  86%|########6 | 307/356 [01:11<00:11,  4.32it/s]Caching latents to disk:  87%|########6 | 308/356 [01:12<00:11,  4.32it/s]Caching latents to disk:  87%|########6 | 309/356 [01:12<00:10,  4.32it/s]Caching latents to disk:  87%|########7 | 310/356 [01:12<00:10,  4.32it/s]Caching latents to disk:  87%|########7 | 311/356 [01:12<00:10,  4.32it/s]Caching latents to disk:  88%|########7 | 312/356 [01:12<00:10,  4.33it/s]Caching latents to disk:  88%|########7 | 313/356 [01:13<00:09,  4.32it/s]Caching latents to disk:  88%|########8 | 314/356 [01:13<00:09,  4.33it/s]Caching latents to disk:  88%|########8 | 315/356 [01:13<00:09,  4.34it/s]Caching latents to disk:  89%|########8 | 316/356 [01:13<00:09,  4.32it/s]Caching latents to disk:  89%|########9 | 317/356 [01:14<00:09,  4.32it/s]Caching latents to disk:  89%|########9 | 318/356 [01:14<00:08,  4.33it/s]Caching latents to disk:  90%|########9 | 319/356 [01:14<00:08,  4.33it/s]Caching latents to disk:  90%|########9 | 320/356 [01:14<00:08,  4.32it/s]Caching latents to disk:  90%|######### | 321/356 [01:15<00:08,  4.32it/s]Caching latents to disk:  90%|######### | 322/356 [01:15<00:07,  4.33it/s]Caching latents to disk:  91%|######### | 323/356 [01:15<00:07,  4.32it/s]Caching latents to disk:  91%|#########1| 324/356 [01:15<00:07,  4.32it/s]Caching latents to disk:  91%|#########1| 325/356 [01:15<00:07,  4.31it/s]Caching latents to disk:  92%|#########1| 326/356 [01:16<00:06,  4.32it/s]Caching latents to disk:  92%|#########1| 327/356 [01:16<00:06,  4.32it/s]Caching latents to disk:  92%|#########2| 328/356 [01:16<00:06,  4.32it/s]Caching latents to disk:  92%|#########2| 329/356 [01:16<00:06,  4.33it/s]Caching latents to disk:  93%|#########2| 330/356 [01:17<00:06,  4.33it/s]Caching latents to disk:  93%|#########2| 331/356 [01:17<00:05,  4.33it/s]Caching latents to disk:  93%|#########3| 332/356 [01:17<00:05,  4.32it/s]Caching latents to disk:  94%|#########3| 333/356 [01:17<00:05,  4.32it/s]Caching latents to disk:  94%|#########3| 334/356 [01:18<00:05,  4.33it/s]Caching latents to disk:  94%|#########4| 335/356 [01:18<00:04,  4.33it/s]Caching latents to disk:  94%|#########4| 336/356 [01:18<00:04,  4.33it/s]Caching latents to disk:  95%|#########4| 337/356 [01:18<00:04,  4.33it/s]Caching latents to disk:  95%|#########4| 338/356 [01:18<00:04,  4.33it/s]Caching latents to disk:  95%|#########5| 339/356 [01:19<00:03,  4.32it/s]Caching latents to disk:  96%|#########5| 340/356 [01:19<00:03,  4.32it/s]Caching latents to disk:  96%|#########5| 341/356 [01:19<00:03,  4.33it/s]Caching latents to disk:  96%|#########6| 342/356 [01:19<00:03,  4.33it/s]Caching latents to disk:  96%|#########6| 343/356 [01:20<00:02,  4.34it/s]Caching latents to disk:  97%|#########6| 344/356 [01:20<00:02,  4.33it/s]Caching latents to disk:  97%|#########6| 345/356 [01:20<00:02,  4.34it/s]Caching latents to disk:  97%|#########7| 346/356 [01:20<00:02,  4.33it/s]Caching latents to disk:  97%|#########7| 347/356 [01:21<00:02,  4.33it/s]Caching latents to disk:  98%|#########7| 348/356 [01:21<00:01,  4.33it/s]Caching latents to disk:  98%|#########8| 349/356 [01:21<00:01,  4.34it/s]Caching latents to disk:  98%|#########8| 350/356 [01:21<00:01,  4.35it/s]Caching latents to disk:  99%|#########8| 351/356 [01:21<00:01,  4.33it/s]Caching latents to disk:  99%|#########8| 352/356 [01:22<00:00,  4.34it/s]Caching latents to disk:  99%|#########9| 353/356 [01:22<00:00,  4.33it/s]Caching latents to disk:  99%|#########9| 354/356 [01:22<00:00,  4.34it/s]Caching latents to disk: 100%|#########9| 355/356 [01:22<00:00,  4.31it/s]Caching latents to disk: 100%|##########| 356/356 [01:23<00:00,  4.27it/s]Caching latents to disk: 100%|##########| 356/356 [01:23<00:00,  4.28it/s]
+[86.79W 2790MHz] Caching embeddings and unloading text encoder
+[116.62W 2790MHz] 
+***** UNLOADING TEXT ENCODER *****
+[116.62W 2790MHz] This will train only with a blank prompt or trigger word, if set
+[116.62W 2790MHz] If this is not what you want, remove the unload_text_encoder flag
+[116.62W 2790MHz] ***********************************
+[116.62W 2790MHz] 
+[61.66W 2100MHz] Skipping first sample due to config setting
+
+================================================================================
+  ORAKUL STUDIO CORE • Active & Optimized by Roman Nikonov|Update:23.06.26 V2.0
+================================================================================
+
+                              
+      ____           __        __  ______          ___        
+     / __ \_______ _/ /____ __/ / / __/ /___ _____/ (_)__     
+    / /_/ / __/ _ `/  '_/ // / / _\ \/ __/ // / _  / / _ \    
+    \____/_/  \_,_/_/\_\\_,_/_/ /___/\__/\_,_/\_,_/_/\___/    
+                                                                                                                                                                                                                 
+    
+
+================================================================================
+                    *The magic of clean code*
+  Tired of crawling like a snail at rank16 17s/it? Enjoy the rank128 8s rocket
+  Cloned via CLI? Don't be a ghost! Star the repo to keep it fast
+  https://github.com/OrakulStudio/AI-Toolkit-Windows11
+================================================================================
+
+[61.66W 2100MHz] r1280f2aivazovsky:  20%|##        | 100/500 [00:00<?, ?it/s][128.91W 2790MHz] r1280f2aivazovsky:  20%|##        | 100/500 [00:46<?, ?it/s, lr: 1.0e-04 loss: 1.090e+00][128.91W 2790MHz] r1280f2aivazovsky:  20%|##        | 100/500 [00:46<?, ?it/s, lr: 1.0e-04 loss: 1.090e+00][129.88W 2790MHz] r1280f2aivazovsky:  20%|##        | 100/500 [01:24<?, ?it/s, lr: 1.0e-04 loss: 1.353e-01][130.51W 2790MHz] r1280f2aivazovsky:  20%|##        | 101/500 [02:03<13:40:09, 123.33s/it, lr: 1.0e-04 loss: 4.958e-02][133.09W 2790MHz] r1280f2aivazovsky:  20%|##        | 102/500 [02:42<8:57:41, 81.06s/it, lr: 1.0e-04 loss: 1.272e+00]  [133.96W 2790MHz] r1280f2aivazovsky:  21%|##        | 103/500 [03:20<7:22:24, 66.86s/it, lr: 1.0e-04 loss: 5.674e-01][139.18W 2790MHz] r1280f2aivazovsky:  21%|##        | 104/500 [03:59<6:34:44, 59.81s/it, lr: 1.0e-04 loss: 6.751e-01][139.73W 2790MHz] r1280f2aivazovsky:  21%|##1       | 105/500 [04:37<6:05:39, 55.54s/it, lr: 1.0e-04 loss: 8.840e-01][132.92W 2790MHz] r1280f2aivazovsky:  21%|##1       | 106/500 [05:16<5:46:06, 52.71s/it, lr: 1.0e-04 loss: 1.200e+00][133.91W 2790MHz] r1280f2aivazovsky:  21%|##1       | 107/500 [05:54<5:31:57, 50.68s/it, lr: 1.0e-04 loss: 1.428e+00][134.74W 2790MHz] r1280f2aivazovsky:  22%|##1       | 108/500 [06:33<5:21:07, 49.15s/it, lr: 1.0e-04 loss: 7.306e-01][135.21W 2790MHz] r1280f2aivazovsky:  22%|##1       | 109/500 [07:11<5:12:34, 47.96s/it, lr: 1.0e-04 loss: 1.319e+00][134.29W 2790MHz] r1280f2aivazovsky:  22%|##2       | 110/500 [07:50<5:05:39, 47.02s/it, lr: 1.0e-04 loss: 1.524e+00][138.70W 2790MHz] r1280f2aivazovsky:  22%|##2       | 111/500 [08:28<4:59:50, 46.25s/it, lr: 1.0e-04 loss: 4.128e-01][134.80W 2790MHz] r1280f2aivazovsky:  22%|##2       | 112/500 [09:07<4:54:56, 45.61s/it, lr: 1.0e-04 loss: 4.790e-01][135.10W 2790MHz] r1280f2aivazovsky:  23%|##2       | 113/500 [09:45<4:50:38, 45.06s/it, lr: 1.0e-04 loss: 1.212e+00][133.43W 2790MHz] r1280f2aivazovsky:  23%|##2       | 114/500 [10:24<4:46:51, 44.59s/it, lr: 1.0e-04 loss: 8.808e-01][135.49W 2790MHz] r1280f2aivazovsky:  23%|##3       | 115/500 [11:02<4:43:29, 44.18s/it, lr: 1.0e-04 loss: 7.693e-01][134.97W 2790MHz] r1280f2aivazovsky:  23%|##3       | 116/500 [11:41<4:40:28, 43.82s/it, lr: 1.0e-04 loss: 1.398e+00][135.07W 2790MHz] r1280f2aivazovsky:  23%|##3       | 117/500 [12:19<4:37:44, 43.51s/it, lr: 1.0e-04 loss: 3.473e-02][136.13W 2790MHz] r1280f2aivazovsky:  24%|##3       | 118/500 [12:58<4:35:13, 43.23s/it, lr: 1.0e-04 loss: 4.502e-01][136.54W 2790MHz] r1280f2aivazovsky:  24%|##3       | 119/500 [13:36<4:32:55, 42.98s/it, lr: 1.0e-04 loss: 4.014e-01][136.47W 2790MHz] r1280f2aivazovsky:  24%|##4       | 120/500 [14:15<4:30:47, 42.76s/it, lr: 1.0e-04 loss: 6.288e-01][135.63W 2790MHz] r1280f2aivazovsky:  24%|##4       | 121/500 [14:53<4:28:47, 42.55s/it, lr: 1.0e-04 loss: 1.173e+00][136.61W 2790MHz] r1280f2aivazovsky:  24%|##4       | 122/500 [15:32<4:26:55, 42.37s/it, lr: 1.0e-04 loss: 3.444e-01][136.22W 2790MHz] r1280f2aivazovsky:  25%|##4       | 123/500 [16:10<4:25:10, 42.20s/it, lr: 1.0e-04 loss: 1.379e+00][135.87W 2790MHz] r1280f2aivazovsky:  25%|##4       | 124/500 [16:49<4:23:29, 42.05s/it, lr: 1.0e-04 loss: 7.269e-01][135.69W 2790MHz] r1280f2aivazovsky:  25%|##5       | 125/500 [17:27<4:21:53, 41.90s/it, lr: 1.0e-04 loss: 2.998e-01][135.56W 2790MHz] r1280f2aivazovsky:  25%|##5       | 126/500 [18:05<4:20:21, 41.77s/it, lr: 1.0e-04 loss: 1.484e+00][135.13W 2790MHz] r1280f2aivazovsky:  25%|##5       | 127/500 [18:44<4:18:54, 41.65s/it, lr: 1.0e-04 loss: 5.289e-02][134.63W 2790MHz] r1280f2aivazovsky:  26%|##5       | 128/500 [19:22<4:17:30, 41.53s/it, lr: 1.0e-04 loss: 0.000e+00][135.82W 2790MHz] r1280f2aivazovsky:  26%|##5       | 129/500 [20:01<4:16:10, 41.43s/it, lr: 1.0e-04 loss: 1.267e+00][135.14W 2790MHz] r1280f2aivazovsky:  26%|##6       | 130/500 [20:39<4:14:52, 41.33s/it, lr: 1.0e-04 loss: 6.188e-01][135.68W 2790MHz] r1280f2aivazovsky:  26%|##6       | 131/500 [21:18<4:13:37, 41.24s/it, lr: 1.0e-04 loss: 3.239e-01][135.39W 2790MHz] r1280f2aivazovsky:  26%|##6       | 132/500 [21:56<4:12:23, 41.15s/it, lr: 1.0e-04 loss: 1.526e+00][135.12W 2790MHz] r1280f2aivazovsky:  27%|##6       | 133/500 [22:35<4:11:12, 41.07s/it, lr: 1.0e-04 loss: 1.641e+00][135.98W 2790MHz] r1280f2aivazovsky:  27%|##6       | 134/500 [23:13<4:10:04, 41.00s/it, lr: 1.0e-04 loss: 5.829e-01][135.79W 2790MHz] r1280f2aivazovsky:  27%|##7       | 135/500 [23:52<4:08:56, 40.92s/it, lr: 1.0e-04 loss: 1.187e+00][135.14W 2790MHz] r1280f2aivazovsky:  27%|##7       | 136/500 [24:30<4:07:51, 40.85s/it, lr: 1.0e-04 loss: 1.189e+00][137.78W 2790MHz] r1280f2aivazovsky:  27%|##7       | 137/500 [25:09<4:06:46, 40.79s/it, lr: 1.0e-04 loss: 1.476e+00][135.60W 2790MHz] r1280f2aivazovsky:  28%|##7       | 138/500 [25:47<4:05:43, 40.73s/it, lr: 1.0e-04 loss: 1.486e+00][136.10W 2790MHz] r1280f2aivazovsky:  28%|##7       | 139/500 [26:26<4:04:42, 40.67s/it, lr: 1.0e-04 loss: 1.594e+00][136.68W 2790MHz] r1280f2aivazovsky:  28%|##8       | 140/500 [27:04<4:03:42, 40.62s/it, lr: 1.0e-04 loss: 3.321e-01][138.45W 2790MHz] r1280f2aivazovsky:  28%|##8       | 141/500 [27:43<4:02:43, 40.57s/it, lr: 1.0e-04 loss: 1.960e-01][136.38W 2790MHz] r1280f2aivazovsky:  28%|##8       | 142/500 [28:21<4:01:44, 40.52s/it, lr: 1.0e-04 loss: 1.179e+00][136.74W 2790MHz] r1280f2aivazovsky:  29%|##8       | 143/500 [29:00<4:00:46, 40.47s/it, lr: 1.0e-04 loss: 1.296e+00][137.57W 2790MHz] r1280f2aivazovsky:  29%|##8       | 144/500 [29:38<3:59:49, 40.42s/it, lr: 1.0e-04 loss: 6.765e-01][136.22W 2790MHz] r1280f2aivazovsky:  29%|##9       | 145/500 [30:16<3:58:53, 40.38s/it, lr: 1.0e-04 loss: 4.138e-01][137.32W 2790MHz] r1280f2aivazovsky:  29%|##9       | 146/500 [30:55<3:57:59, 40.34s/it, lr: 1.0e-04 loss: 1.428e+00][137.06W 2790MHz] r1280f2aivazovsky:  29%|##9       | 147/500 [31:33<3:57:04, 40.30s/it, lr: 1.0e-04 loss: 1.360e+00][136.77W 2790MHz] r1280f2aivazovsky:  30%|##9       | 148/500 [32:12<3:56:11, 40.26s/it, lr: 1.0e-04 loss: 9.891e-01][137.00W 2790MHz] r1280f2aivazovsky:  30%|##9       | 149/500 [32:50<3:55:18, 40.22s/it, lr: 1.0e-04 loss: 1.319e+00][137.00W 2790MHz] 
+Saving at step 150
+[62.06W 2100MHz] Saved checkpoint to D:\AI_Models\ai-toolkit\output\r1280f2aivazovsky\r1280f2aivazovsky_000000150.safetensors
+[62.25W 2100MHz] Saved optimizer to D:\AI_Models\ai-toolkit\output\r1280f2aivazovsky\optimizer.pt
+[131.12W 2790MHz] r1280f2aivazovsky:  30%|###       | 150/500 [33:29<3:54:25, 40.19s/it, lr: 1.0e-04 loss: 8.303e-01][134.63W 2790MHz] r1280f2aivazovsky:  30%|###       | 151/500 [34:08<3:53:38, 40.17s/it, lr: 1.0e-04 loss: 5.993e-01][134.94W 2790MHz] r1280f2aivazovsky:  30%|###       | 152/500 [34:47<3:52:52, 40.15s/it, lr: 1.0e-04 loss: 1.256e+00][136.36W 2790MHz] r1280f2aivazovsky:  31%|###       | 153/500 [35:27<3:52:06, 40.13s/it, lr: 1.0e-04 loss: 1.550e+00][136.13W 2790MHz] r1280f2aivazovsky:  31%|###       | 154/500 [36:06<3:51:18, 40.11s/it, lr: 1.0e-04 loss: 7.348e-01][137.86W 2790MHz] r1280f2aivazovsky:  31%|###1      | 155/500 [36:45<3:50:31, 40.09s/it, lr: 1.0e-04 loss: 8.159e-01][136.40W 2790MHz] r1280f2aivazovsky:  31%|###1      | 156/500 [37:24<3:49:45, 40.07s/it, lr: 1.0e-04 loss: 1.436e+00][136.81W 2790MHz] r1280f2aivazovsky:  31%|###1      | 157/500 [38:03<3:48:58, 40.06s/it, lr: 1.0e-04 loss: 1.530e+00][136.29W 2790MHz] r1280f2aivazovsky:  32%|###1      | 158/500 [38:42<3:48:13, 40.04s/it, lr: 1.0e-04 loss: 1.277e+00][139.98W 2790MHz] r1280f2aivazovsky:  32%|###1      | 159/500 [39:21<3:47:27, 40.02s/it, lr: 1.0e-04 loss: 1.811e-01][141.95W 2790MHz] r1280f2aivazovsky:  32%|###2      | 160/500 [40:00<3:46:41, 40.00s/it, lr: 1.0e-04 loss: 9.165e-01][140.32W 2790MHz] r1280f2aivazovsky:  32%|###2      | 161/500 [40:39<3:45:56, 39.99s/it, lr: 1.0e-04 loss: 1.043e+00][136.41W 2790MHz] r1280f2aivazovsky:  32%|###2      | 162/500 [41:18<3:45:11, 39.98s/it, lr: 1.0e-04 loss: 4.903e-01][135.58W 2790MHz] r1280f2aivazovsky:  33%|###2      | 163/500 [41:57<3:44:26, 39.96s/it, lr: 1.0e-04 loss: 1.205e+00][135.96W 2790MHz] r1280f2aivazovsky:  33%|###2      | 164/500 [42:36<3:43:41, 39.95s/it, lr: 1.0e-04 loss: 4.781e-01][136.85W 2790MHz] r1280f2aivazovsky:  33%|###3      | 165/500 [43:15<3:42:57, 39.93s/it, lr: 1.0e-04 loss: 1.030e+00][136.13W 2790MHz] r1280f2aivazovsky:  33%|###3      | 166/500 [43:54<3:42:12, 39.92s/it, lr: 1.0e-04 loss: 1.333e-01][136.34W 2790MHz] r1280f2aivazovsky:  33%|###3      | 167/500 [44:33<3:41:28, 39.90s/it, lr: 1.0e-04 loss: 1.408e+00][136.30W 2790MHz] r1280f2aivazovsky:  34%|###3      | 168/500 [45:12<3:40:44, 39.89s/it, lr: 1.0e-04 loss: 6.245e-01][137.18W 2790MHz] r1280f2aivazovsky:  34%|###3      | 169/500 [45:51<3:40:00, 39.88s/it, lr: 1.0e-04 loss: 4.128e-01][137.01W 2790MHz] r1280f2aivazovsky:  34%|###4      | 170/500 [46:30<3:39:16, 39.87s/it, lr: 1.0e-04 loss: 3.790e-01][137.42W 2790MHz] r1280f2aivazovsky:  34%|###4      | 171/500 [47:09<3:38:32, 39.85s/it, lr: 1.0e-04 loss: 7.591e-01][136.85W 2790MHz] r1280f2aivazovsky:  34%|###4      | 172/500 [47:48<3:37:48, 39.84s/it, lr: 1.0e-04 loss: 1.498e+00][143.90W 2790MHz] r1280f2aivazovsky:  35%|###4      | 173/500 [48:27<3:37:05, 39.83s/it, lr: 1.0e-04 loss: 1.396e+00][137.02W 2790MHz] r1280f2aivazovsky:  35%|###4      | 174/500 [49:06<3:36:21, 39.82s/it, lr: 1.0e-04 loss: 1.253e+00][136.46W 2790MHz] r1280f2aivazovsky:  35%|###5      | 175/500 [49:45<3:35:38, 39.81s/it, lr: 1.0e-04 loss: 6.644e-01][136.62W 2790MHz] r1280f2aivazovsky:  35%|###5      | 176/500 [50:24<3:34:55, 39.80s/it, lr: 1.0e-04 loss: 1.441e+00][142.26W 2790MHz] r1280f2aivazovsky:  35%|###5      | 177/500 [51:03<3:34:12, 39.79s/it, lr: 1.0e-04 loss: 1.450e+00][137.11W 2790MHz] r1280f2aivazovsky:  36%|###5      | 178/500 [51:42<3:33:29, 39.78s/it, lr: 1.0e-04 loss: 1.442e+00][136.15W 2790MHz] r1280f2aivazovsky:  36%|###5      | 179/500 [52:21<3:32:46, 39.77s/it, lr: 1.0e-04 loss: 5.240e-01][136.24W 2790MHz] r1280f2aivazovsky:  36%|###6      | 180/500 [53:00<3:32:03, 39.76s/it, lr: 1.0e-04 loss: 4.308e-01][137.71W 2790MHz] r1280f2aivazovsky:  36%|###6      | 181/500 [53:39<3:31:20, 39.75s/it, lr: 1.0e-04 loss: 1.254e+00][137.27W 2790MHz] r1280f2aivazovsky:  36%|###6      | 182/500 [54:18<3:30:38, 39.74s/it, lr: 1.0e-04 loss: 6.195e-01][135.81W 2790MHz] r1280f2aivazovsky:  37%|###6      | 183/500 [54:58<3:29:56, 39.74s/it, lr: 1.0e-04 loss: 1.295e+00][136.23W 2790MHz] r1280f2aivazovsky:  37%|###6      | 184/500 [55:37<3:29:13, 39.73s/it, lr: 1.0e-04 loss: 2.808e-01][134.94W 2790MHz] r1280f2aivazovsky:  37%|###7      | 185/500 [56:16<3:28:31, 39.72s/it, lr: 1.0e-04 loss: 1.570e+00][135.89W 2790MHz] r1280f2aivazovsky:  37%|###7      | 186/500 [56:55<3:27:48, 39.71s/it, lr: 1.0e-04 loss: 1.368e+00][135.94W 2790MHz] r1280f2aivazovsky:  37%|###7      | 187/500 [57:34<3:27:06, 39.70s/it, lr: 1.0e-04 loss: 1.598e+00][136.88W 2790MHz] r1280f2aivazovsky:  38%|###7      | 188/500 [58:13<3:26:24, 39.69s/it, lr: 1.0e-04 loss: 7.846e-01][136.67W 2790MHz] r1280f2aivazovsky:  38%|###7      | 189/500 [58:52<3:25:42, 39.69s/it, lr: 1.0e-04 loss: 9.352e-01][137.01W 2790MHz] r1280f2aivazovsky:  38%|###8      | 190/500 [59:31<3:25:00, 39.68s/it, lr: 1.0e-04 loss: 1.175e+00][137.03W 2790MHz] r1280f2aivazovsky:  38%|###8      | 191/500 [1:00:10<3:24:18, 39.67s/it, lr: 1.0e-04 loss: 1.300e+00][136.92W 2790MHz] r1280f2aivazovsky:  38%|###8      | 192/500 [1:00:49<3:23:36, 39.66s/it, lr: 1.0e-04 loss: 1.607e+00][136.66W 2790MHz] r1280f2aivazovsky:  39%|###8      | 193/500 [1:01:28<3:22:55, 39.66s/it, lr: 1.0e-04 loss: 1.109e+00][137.03W 2790MHz] r1280f2aivazovsky:  39%|###8      | 194/500 [1:02:07<3:22:13, 39.65s/it, lr: 1.0e-04 loss: 3.488e-01][137.35W 2790MHz] r1280f2aivazovsky:  39%|###9      | 195/500 [1:02:46<3:21:31, 39.64s/it, lr: 1.0e-04 loss: 4.542e-01][137.13W 2790MHz] r1280f2aivazovsky:  39%|###9      | 196/500 [1:03:25<3:20:49, 39.64s/it, lr: 1.0e-04 loss: 1.541e+00][140.92W 2790MHz] r1280f2aivazovsky:  39%|###9      | 197/500 [1:04:04<3:20:08, 39.63s/it, lr: 1.0e-04 loss: 1.306e+00][143.90W 2790MHz] r1280f2aivazovsky:  40%|###9      | 198/500 [1:04:43<3:19:26, 39.63s/it, lr: 1.0e-04 loss: 8.726e-01][142.36W 2790MHz] r1280f2aivazovsky:  40%|###9      | 199/500 [1:05:22<3:18:45, 39.62s/it, lr: 1.0e-04 loss: 1.216e+00][142.36W 2790MHz] 
+Saving at step 200
+[62.62W 2100MHz] Saved checkpoint to D:\AI_Models\ai-toolkit\output\r1280f2aivazovsky\r1280f2aivazovsky_000000200.safetensors
+[62.88W 2100MHz] Saved optimizer to D:\AI_Models\ai-toolkit\output\r1280f2aivazovsky\optimizer.pt
+[132.01W 2790MHz] r1280f2aivazovsky:  40%|####      | 200/500 [1:06:07<3:18:21, 39.67s/it, lr: 1.0e-04 loss: 1.366e+00][134.71W 2790MHz] r1280f2aivazovsky:  40%|####      | 201/500 [1:06:47<3:17:43, 39.68s/it, lr: 1.0e-04 loss: 1.462e+00]

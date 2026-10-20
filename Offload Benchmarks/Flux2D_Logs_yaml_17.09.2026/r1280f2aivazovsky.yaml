@@ -1,0 +1,95 @@
+job: extension
+config:
+  name: r1280f2aivazovsky
+  process:
+  - type: diffusion_trainer
+    training_folder: D:\AI_Models\ai-toolkit\output
+    device: cuda
+    trigger_word: r1280f2aivazovsky
+    performance_log_every: 10
+    network:
+      type: lora
+      linear: 1280
+      linear_alpha: 64    
+      conv: 32            
+      conv_alpha: 64      
+      lokr_full_rank: true
+      lokr_factor: -1
+      network_kwargs:
+        ignore_if_contains: []
+    save:
+      dtype: bf16
+      save_every: 50
+      max_step_saves_to_keep: 10
+      save_format: diffusers
+      push_to_hub: false
+    datasets:
+    - folder_path:  D:\AI_Models\datasets\AIvazovsky
+      mask_path: null
+      mask_min_value: 0.1
+      default_caption: ''
+      caption_ext: txt
+      caption_dropout_rate: 0.05
+      cache_latents_to_disk: true
+      is_reg: false
+      network_weight: 1
+      resolution:
+      - 512
+      controls: []
+      shrink_video_to_frames: true
+      num_frames: 1
+      flip_x: false
+      flip_y: false
+      num_repeats: 1
+      control_path_1: null
+      control_path_2: null
+      control_path_3: null
+    train:
+      batch_size: 1
+      bypass_guidance_embedding: false
+      steps: 500
+      gradient_accumulation: 1
+      train_unet: true
+      train_text_encoder: false
+      gradient_checkpointing: true
+      noise_scheduler: flowmatch
+      optimizer: adamw8bit
+      timestep_type: weighted
+      content_or_style: balanced
+      optimizer_params:
+        weight_decay: 0.0001
+      unload_text_encoder: true
+      cache_text_embeddings: false
+      lr: 0.0001
+      ema_config:
+        use_ema: false
+        ema_decay: 0.99
+      skip_first_sample: true
+      force_first_sample: false
+      disable_sampling: true
+      dtype: bf16
+      diff_output_preservation: false
+      diff_output_preservation_multiplier: 1
+      diff_output_preservation_class: person
+      switch_boundary_every: 1
+      loss_type: mse
+    logging:
+      log_every: 1
+      use_ui_logger: false
+    model:
+      name_or_path: black-forest-labs/FLUX.2-dev
+      quantize: true
+      qtype: bf8
+      quantize_te: true
+      qtype_te: bf8
+      arch: flux2
+      low_vram: false
+      model_kwargs:
+        match_target_res: false
+      layer_offloading: true
+      layer_offloading_text_encoder_percent: 0.65
+      layer_offloading_transformer_percent: 0.65
+    
+meta:
+  name: r1280f2aivazovsky
+  version: '1.0'
