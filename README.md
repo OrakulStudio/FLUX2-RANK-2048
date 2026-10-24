@@ -304,4 +304,4 @@ Trained and shipped under active shelling in Chernihiv, Ukraine. System stable.
 
 ## 📜 License
 
-This project is licensed under the **MIT License**  free for personal and commercial use. See the [`LICENSE`](LICENSE) file for details.
+This project is licensed under the **MIT License**  free for personal and commercial use. See the [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://members.opensource.org/user/roman-nykonov) file for details.
