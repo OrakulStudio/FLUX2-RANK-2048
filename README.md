@@ -302,6 +302,6 @@ A **distilled rank-128** version is in progress and will be released shortly for
 
 Trained and shipped under active shelling in Chernihiv, Ukraine. System stable.
 
-## License
+## 📜 License
 
-*(add license - e.g. same terms as FLUX.2-dev base model / your preferred license)*
+This project is licensed under the **MIT License**  free for personal and commercial use. See the [`LICENSE`](LICENSE) file for details.
